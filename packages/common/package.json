@@ -3,7 +3,15 @@
   "version": "0.0.0",
   "repository": "toeverything/notesuite",
   "type": "module",
+  "scripts": {
+    "build": "tsc"
+  },
   "exports": {
     ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@blocksuite/blocks": "0.14.0-canary-202403282100-70199f1",
+    "@blocksuite/presets": "0.14.0-canary-202403282100-70199f1",
+    "@blocksuite/store": "0.14.0-canary-202403282100-70199f1"
   }
 }
