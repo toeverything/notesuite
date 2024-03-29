@@ -1,0 +1,13 @@
+{
+  "name": "@notesuite/client",
+  "version": "0.0.0",
+  "repository": "toeverything/notesuite",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@notesuite/common": "workspace:*",
+    "@notesuite/drive": "workspace:*"
+  }
+}

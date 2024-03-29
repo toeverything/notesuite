@@ -1,0 +1,9 @@
+{
+  "name": "@notesuite/drive",
+  "version": "0.0.0",
+  "repository": "toeverything/notesuite",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
