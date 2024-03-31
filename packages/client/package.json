@@ -16,6 +16,7 @@
   "dependencies": {
     "@notesuite/common": "workspace:*",
     "@notesuite/drive": "workspace:*",
+    "naive-ui": "^2.38.1",
     "sql.js": "^1.10.2",
     "vue": "^3.4.21"
   },
