@@ -1,55 +1,41 @@
 <template>
   <div class="sidebar">
-    <div class="header">All Docs</div>
-    <div class="doc-list">
-      <div
-        v-for="doc in docs"
-        :key="doc.id"
-        :class="{ 'doc-item': true, active: editor?.doc === doc }"
-        @click="selectDoc(doc as Doc)"
-      >
-        {{ doc.meta?.title || 'Untitled' }}
-      </div>
-    </div>
+    <n-menu :options="menuOptions" @update:value="selectDoc" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue';
-import { AppState } from './EditorProvider.vue';
+import { inject, ref, onMounted } from 'vue';
+import { NMenu } from 'naive-ui';
+import type { MenuOption } from 'naive-ui';
 import { Doc } from '@notesuite/common';
+import { AppState } from './EditorProvider.vue';
 
 const { editor, collection } = inject<AppState>('appState')!;
-const docs = ref<Doc[]>([...collection.docs.values()]);
+const menuOptions = ref<MenuOption[]>([]);
 
-const updateDocs = () => (docs.value = [...collection.docs.values()]);
+function updateDocs() {
+  menuOptions.value = [...collection.docs.values()].map(doc => ({
+    label: doc.meta?.title || 'Untitled',
+    key: doc.id,
+  }));
+}
 
-collection.slots.docUpdated.on(updateDocs);
-editor.slots.docLinkClicked.on(updateDocs);
-
-const selectDoc = (doc: Doc) => {
+function selectDoc(key: string) {
+  const doc = [...collection.docs.values()].find(d => d.id === key) as Doc;
+  if (!doc) return;
   editor.doc = doc;
   updateDocs();
-};
+}
+
+onMounted(updateDocs);
+collection.slots.docUpdated.on(updateDocs);
+editor.slots.docLinkClicked.on(updateDocs);
 </script>
 
 <style scoped>
-
 .sidebar {
   padding: 10px;
   width: 250px;
-}
-
-.sidebar .header {
-  margin-bottom: 10px;
-}
-
-.doc-item {
-  padding: 5px;
-}
-
-.doc-item.active,
-.doc-item:hover {
-  background-color: #f0f0f0;
 }
 </style>
