@@ -1,19 +1,36 @@
 <template>
-  <n-message-provider>
-    <EditorProvider>
-      <div class="app">
-        <Sidebar />
-        <div class="main-content">
+  <EditorProvider>
+    <n-message-provider>
+      <n-layout position="absolute">
+        <n-layout-header style="height: 40px" bordered>
           <TopBar />
-          <EditorContainer />
-        </div>
-      </div>
-    </EditorProvider>
-  </n-message-provider>
+        </n-layout-header>
+        <n-layout has-sider position="absolute" style="top: 40px;">
+          <n-layout-sider
+            collapse-mode="width"
+            :collapsed-width="120"
+            :width="240"
+            show-trigger="bar"
+            bordered
+          >
+            <Sidebar />
+          </n-layout-sider>
+          <n-layout content-style="padding: 24px;">
+            <EditorContainer />
+          </n-layout>
+        </n-layout>
+      </n-layout>
+    </n-message-provider>
+  </EditorProvider>
 </template>
 
 <script setup>
-import { NMessageProvider } from 'naive-ui'
+import {
+  NMessageProvider,
+  NLayout,
+  NLayoutSider,
+  NLayoutHeader,
+} from 'naive-ui';
 import EditorProvider from './components/EditorProvider.vue';
 import Sidebar from './components/Sidebar.vue';
 import TopBar from './components/TopBar.vue';

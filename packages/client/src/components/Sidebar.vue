@@ -1,7 +1,5 @@
 <template>
-  <div class="sidebar">
-    <n-menu :options="menuOptions" @update:value="selectDoc" />
-  </div>
+  <n-menu :options="menuOptions" @update:value="selectDoc" />
 </template>
 
 <script setup lang="ts">
@@ -32,10 +30,3 @@ onMounted(updateDocs);
 collection.slots.docUpdated.on(updateDocs);
 editor.slots.docLinkClicked.on(updateDocs);
 </script>
-
-<style scoped>
-.sidebar {
-  padding: 10px;
-  width: 250px;
-}
-</style>
