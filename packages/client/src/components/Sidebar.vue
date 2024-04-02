@@ -1,5 +1,5 @@
 <template>
-  <n-menu :options="menuOptions" @update:value="selectDoc" />
+  <NMenu :options="menuOptions" @update:value="selectDoc" />
 </template>
 
 <script setup lang="ts">
