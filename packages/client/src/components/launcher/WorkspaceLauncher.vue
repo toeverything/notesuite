@@ -17,7 +17,7 @@
               <NCard>
                 <NUpload>
                   <p>
-                    Import a workspace from URL (🚧) or zip file.
+                    Import a local or remote workspace.
                   </p>
                   <NButton type="primary">Import</NButton>
                 </NUpload>

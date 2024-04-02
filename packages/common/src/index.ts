@@ -4,14 +4,21 @@ import { Doc, Schema } from '@blocksuite/store';
 import { DocCollection } from '@blocksuite/store';
 import { AffineSchemas } from '@blocksuite/blocks';
 
-export { Doc, DocCollection } from '@blocksuite/store'; 
+export { Doc, DocCollection } from '@blocksuite/store';
 export { AffineEditorContainer } from '@blocksuite/presets';
 
-export function initEditor() {
+export function initWorkspaceContext() {
   const schema = new Schema().register(AffineSchemas);
   const collection = new DocCollection({ schema });
-  const doc = collection.createDoc({ id: 'page1' });
+  const editor = new AffineEditorContainer();
+  return { editor, collection };
+}
 
+export function initEmptyDoc(
+  editor: AffineEditorContainer,
+  collection: DocCollection
+) {
+  const doc = collection.createDoc();
   doc.load(() => {
     const pageBlockId = doc.addBlock('affine:page', {});
     doc.addBlock('affine:surface', {}, pageBlockId);
@@ -19,11 +26,9 @@ export function initEditor() {
     doc.addBlock('affine:paragraph', {}, noteId);
   });
 
-  const editor = new AffineEditorContainer();
   editor.doc = doc;
   editor.slots.docLinkClicked.on(({ docId }) => {
     const target = <Doc>collection.getDoc(docId);
     editor.doc = target;
   });
-  return { editor, collection };
 }

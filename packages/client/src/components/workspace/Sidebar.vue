@@ -7,9 +7,9 @@ import { inject, ref, onMounted } from 'vue';
 import { NMenu } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
 import { Doc } from '@notesuite/common';
-import { AppState } from './EditorProvider.vue';
+import type { WorkspaceContext } from './WorkspaceLayout.vue';
 
-const { editor, collection } = inject<AppState>('appState')!;
+const { editor, collection } = inject<WorkspaceContext>('workspaceContext')!;
 const menuOptions = ref<MenuOption[]>([]);
 
 function updateDocs() {

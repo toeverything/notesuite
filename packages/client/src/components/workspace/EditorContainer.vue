@@ -4,9 +4,9 @@
 
 <script setup lang="ts">
 import { inject, onMounted, ref } from 'vue';
-import { AppState } from './EditorProvider.vue';
+import type { WorkspaceContext } from './WorkspaceLayout.vue';
 
-const { editor } = inject<AppState>('appState')!;
+const { editor } = inject<WorkspaceContext>('workspaceContext')!;
 const editorContainerRef = ref<HTMLDivElement>();
 
 onMounted(() => {
