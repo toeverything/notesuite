@@ -1,6 +1,21 @@
 import { v2 as webdav } from 'webdav-server';
 
-const server = new webdav.WebDAVServer();
+const userManager = new webdav.SimpleUserManager();
+const privilegeManager = new webdav.SimplePathPrivilegeManager();
+
+const user = userManager.addUser('guest', 'password', false);
+privilegeManager.setRights(user, '/', ['canRead']);
+
+const httpAuthentication = new webdav.HTTPDigestAuthentication(
+  userManager,
+  'Default realm'
+);
+
+const server = new webdav.WebDAVServer({
+  httpAuthentication,
+  privilegeManager,
+  requireAuthentification: false,
+});
 
 server.rootFileSystem().addSubTree(
   server.createExternalContext(),
