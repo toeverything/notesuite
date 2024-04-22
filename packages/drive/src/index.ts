@@ -3,8 +3,10 @@ import { v2 as webdav } from 'webdav-server';
 const userManager = new webdav.SimpleUserManager();
 const privilegeManager = new webdav.SimplePathPrivilegeManager();
 
-const user = userManager.addUser('guest', 'password', false);
-privilegeManager.setRights(user, '/', ['canRead']);
+const defaultUser = userManager.addUser('guest', 'password', false);
+const anonymousUser = userManager.addUser('anonymous', '', false);
+privilegeManager.setRights(defaultUser, '/', ['canRead']);
+privilegeManager.setRights(anonymousUser, '/', ['canRead']);
 
 const httpAuthentication = new webdav.HTTPDigestAuthentication(
   userManager,
