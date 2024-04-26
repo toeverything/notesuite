@@ -1,33 +1,39 @@
+// @ts-check
+
+const express = require('express');
 const WebSocket = require('ws');
-const http = require('http');
+const { setupWSConnection, docs } = require('y-websocket/bin/utils');
+
+const app = express();
+const port = parseInt(process.env.PORT || '3000');
 const wss = new WebSocket.Server({ noServer: true });
-const { setupWSConnection } = require('y-websocket/bin/utils');
 
-const host = process.env.HOST || 'localhost';
-const port = parseInt(process.env.PORT || '4444');
-
-const server = http.createServer((_request, response) => {
-  response.writeHead(200, { 'Content-Type': 'text/plain' });
-  response.end('okay');
+wss.on('connection', (ws, request) => {
+  if (!request.url) return;
+  console.log(docs);
+  setupWSConnection(ws, request, { gc: true });
 });
 
-wss.on('connection', setupWSConnection);
+app.use(express.static('./'));
+app.use((req, res, next) => {
+  console.log(`Received request for ${req.url}`);
+  next();
+});
+
+const server = app.listen(port, () => {
+  console.log(`Server started on http://localhost:${port}`);
+});
 
 server.on('upgrade', (request, socket, head) => {
-  // You may check auth of request here..
-  // Call `wss.HandleUpgrade` *after* you checked whether the client has access
-  // (e.g. by checking cookies, or url parameters).
-  // See https://github.com/websockets/ws#client-authentication
-  wss.handleUpgrade(
-    request,
-    socket,
-    head,
-    /** @param {any} ws */ ws => {
-      wss.emit('connection', ws, request);
-    }
-  );
-});
+  if (!request.url) return;
 
-server.listen(port, host, () => {
-  console.log(`running at '${host}' on port ${port}`);
+  const { pathname } = new URL(request.url, `http://${request.headers.host}`);
+
+  if (pathname.startsWith('/')) {
+    wss.handleUpgrade(request, socket, head, ws => {
+      wss.emit('connection', ws, request);
+    });
+  } else {
+    socket.destroy();
+  }
 });
