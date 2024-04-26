@@ -10,7 +10,11 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
+    "express": "^4.19.2",
     "ws": "^8.16.0",
     "y-websocket": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21"
   }
 }
