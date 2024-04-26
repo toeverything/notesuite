@@ -3,7 +3,14 @@
   "version": "0.0.0",
   "repository": "toeverything/notesuite",
   "type": "module",
+  "scripts": {
+    "start": "node ./src/server.cjs"
+  },
   "exports": {
     ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "ws": "^8.16.0",
+    "y-websocket": "^2.0.2"
   }
 }
