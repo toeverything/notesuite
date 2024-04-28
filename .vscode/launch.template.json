@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Server",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "env": {
+        "YPERSISTENCE": "./.db"
+      },
+      "program": "${workspaceFolder}/packages/server/src/server.js",
+      "cwd": "${workspaceFolder}/packages/server"
+    }
+  ]
+}
