@@ -1,6 +1,6 @@
 <template>
-  <WorkspaceLayout v-if="showLayout" />
-  <WorkspaceLauncher v-else />
+  <WorkspaceLauncher v-if="isLauncher" />
+  <WorkspaceLayout v-else />
 </template>
 
 <script setup>
@@ -8,6 +8,5 @@ import { ref } from 'vue';
 import WorkspaceLayout from './components/workspace/WorkspaceLayout.vue';
 import WorkspaceLauncher from './components/launcher/WorkspaceLauncher.vue';
 
-const params = new URLSearchParams(window.location.search);
-const showLayout = ref(params.has('init'));
+const isLauncher = ref(window.location.pathname === '/');
 </script>

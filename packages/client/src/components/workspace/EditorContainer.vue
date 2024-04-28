@@ -17,7 +17,7 @@ onMounted(() => {
 
     if (!editorContainerRef.value) return;
     if (!editor.doc) return;
-    editorContainerRef.value.appendChild(editor);
+    // editorContainerRef.value.appendChild(editor);
   });
 });
 </script>

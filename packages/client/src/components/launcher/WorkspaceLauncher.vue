@@ -14,7 +14,7 @@
                   placeholder="Select an existing workspace"
                   v-model:value="selected"
                   :options="options"
-                  @update:value="onSelected"
+                  @update:value="onSelectedWorkspace"
                 ></NSelect>
                 <p>{{ createWorkspaceMessage }}</p>
                 <NInputGroup>
@@ -59,6 +59,7 @@ import {
   NTabPane,
 } from 'naive-ui';
 import { api } from '../../utils/api';
+import { setWorkspace } from '../../utils/route';
 
 const selected = ref(null);
 
@@ -71,13 +72,13 @@ const createWorkspaceMessage = computed(() => {
   return 'Or, create a new workspace.';
 });
 
-function onSelected(val: string) {
-  console.log(val);
+function onSelectedWorkspace(id: string) {
+  setWorkspace(id);
 }
 
 async function createWorkspace() {
   const workspace = await api.createWorkspace(newWorkspaceName.value);
-  console.log(workspace);
+  setWorkspace(workspace.id);
 }
 
 onMounted(async () => {
