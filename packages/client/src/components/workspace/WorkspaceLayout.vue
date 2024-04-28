@@ -46,6 +46,8 @@ export interface WorkspaceContext {
 }
 
 const context = initWorkspaceContext();
+// @ts-ignore
+window.context = context;
 provide('workspaceContext', context);
 
 // initEmptyDoc(context.editor, context.collection);

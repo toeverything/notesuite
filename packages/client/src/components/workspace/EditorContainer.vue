@@ -13,7 +13,7 @@ const editorContainerRef = ref<HTMLDivElement>();
 onMounted(() => {
   // simulate async loading
   setTimeout(() => {
-    initEmptyDoc(editor, collection);
+    // initEmptyDoc(editor, collection);
 
     if (!editorContainerRef.value) return;
     if (!editor.doc) return;
