@@ -18,8 +18,13 @@
                 ></NSelect>
                 <p>{{ createWorkspaceMessage }}</p>
                 <NInputGroup>
-                  <NInput placeholder="Workspace name"></NInput>
-                  <NButton type="primary">Create</NButton>
+                  <NInput
+                    placeholder="Workspace name"
+                    v-model:value="newWorkspaceName"
+                  ></NInput>
+                  <NButton type="primary" @click="createWorkspace"
+                    >Create</NButton
+                  >
                 </NInputGroup>
               </NCard>
             </NTabPane>
@@ -39,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import {
   NLayout,
   NInput,
@@ -53,22 +58,34 @@ import {
   NTabs,
   NTabPane,
 } from 'naive-ui';
+import { api } from '../../utils/api';
 
 const selected = ref(null);
 
-const options = [
-  { label: 'My Workspace 1', value: 'foo' },
-  { label: 'My Workspace 2', value: 'bar' },
-];
+const options = ref<{ label: string; value: string }[]>([]);
+
+const newWorkspaceName = ref('');
 
 const createWorkspaceMessage = computed(() => {
-  if (options.length === 0) return 'Create a new workspace.';
+  if (options.value.length === 0) return 'Create a new workspace.';
   return 'Or, create a new workspace.';
 });
 
 function onSelected(val: string) {
   console.log(val);
 }
+
+async function createWorkspace() {
+  const workspace = await api.createWorkspace(newWorkspaceName.value);
+  console.log(workspace);
+}
+
+onMounted(async () => {
+  options.value = (await api.fetchWorkspaces()).map(workspace => ({
+    label: workspace.name,
+    value: workspace.id,
+  }));
+});
 </script>
 
 <style>

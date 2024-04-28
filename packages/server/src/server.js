@@ -1,6 +1,7 @@
 // @ts-check
 
 import express from 'express';
+import cors from 'cors';
 import { WebSocketServer } from 'ws';
 import { JSONFilePreset } from 'lowdb/node';
 import { setupWSConnection, docs } from 'y-websocket/bin/utils';
@@ -19,6 +20,7 @@ await db.read();
 await db.write();
 
 app.use(express.static('./'));
+app.use(cors());
 app.use(express.json());
 
 app.get('/api/workspaces', (req, res) => {
@@ -27,7 +29,9 @@ app.get('/api/workspaces', (req, res) => {
 });
 
 app.post('/api/workspaces', async (req, res) => {
-  const { id, name, rootId } = req.body;
+  const { name } = req.body;
+  const id = `${Date.now()}`;
+  const rootId = id;
   db.data.workspaces.push({ id, name, rootId });
   await db.write();
   res.status(201).send({ id, name, rootId });
