@@ -36,7 +36,7 @@ import EditorContainer from './EditorContainer.vue';
 import {
   AffineEditorContainer,
   DocCollection,
-  initEmptyDoc,
+  // initEmptyDoc,
   initWorkspaceContext,
 } from '@notesuite/common';
 
@@ -48,5 +48,5 @@ export interface WorkspaceContext {
 const context = initWorkspaceContext();
 provide('workspaceContext', context);
 
-initEmptyDoc(context.editor, context.collection);
+// initEmptyDoc(context.editor, context.collection);
 </script>
