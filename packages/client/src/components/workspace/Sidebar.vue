@@ -6,7 +6,7 @@
 import { inject, ref, onMounted } from 'vue';
 import { NMenu } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
-import { Doc } from '@notesuite/common';
+import { Doc } from '@blocksuite/store';
 import type { WorkspaceContext } from './WorkspaceLayout.vue';
 
 const { editor, collection } = inject<WorkspaceContext>('workspaceContext')!;

@@ -17,6 +17,15 @@ importers:
 
   packages/client:
     dependencies:
+      '@blocksuite/blocks':
+        specifier: 0.14.0-canary-202403282100-70199f1
+        version: 0.14.0-canary-202403282100-70199f1(yjs@13.6.14)
+      '@blocksuite/presets':
+        specifier: 0.14.0-canary-202403282100-70199f1
+        version: 0.14.0-canary-202403282100-70199f1(yjs@13.6.14)
+      '@blocksuite/store':
+        specifier: 0.14.0-canary-202403282100-70199f1
+        version: 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14)
       '@notesuite/common':
         specifier: workspace:*
         version: link:../common
@@ -26,9 +35,6 @@ importers:
       naive-ui:
         specifier: ^2.38.1
         version: 2.38.1(vue@3.4.21(typescript@5.4.3))
-      sql.js:
-        specifier: ^1.10.2
-        version: 1.10.2
       vue:
         specifier: ^3.4.21
         version: 3.4.21(typescript@5.4.3)
@@ -49,17 +55,7 @@ importers:
         specifier: ^2.0.7
         version: 2.0.7(typescript@5.4.3)
 
-  packages/common:
-    dependencies:
-      '@blocksuite/blocks':
-        specifier: 0.14.0-canary-202403282100-70199f1
-        version: 0.14.0-canary-202403282100-70199f1(yjs@13.6.14)
-      '@blocksuite/presets':
-        specifier: 0.14.0-canary-202403282100-70199f1
-        version: 0.14.0-canary-202403282100-70199f1(yjs@13.6.14)
-      '@blocksuite/store':
-        specifier: 0.14.0-canary-202403282100-70199f1
-        version: 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14)
+  packages/common: {}
 
   packages/drive:
     dependencies:
@@ -100,8 +96,8 @@ importers:
 
 packages:
 
-  '@apollo/client@3.9.9':
-    resolution: {integrity: sha512-/sMecU/M0WK9knrguts1lSLV8xFKzIgOMVb4mi6MOxgJXjliDB8PvOtmXhTqh2cVMMR4TzXgOnb+af/690zlQw==}
+  '@apollo/client@3.10.1':
+    resolution: {integrity: sha512-QNacQBZzJla5UQ/LLBXJWM7/1v1C5cfpMQPAFjW4hg4T54wHWbg4Dr+Dp6N+hy/ygu8tepdM+/y/5VFLZhovlQ==}
     peerDependencies:
       graphql: ^15.0.0 || ^16.0.0
       graphql-ws: ^5.5.5
@@ -1711,8 +1707,8 @@ packages:
   regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
-  rehackt@0.0.6:
-    resolution: {integrity: sha512-l3WEzkt4ntlEc/IB3/mF6SRgNHA6zfQR7BlGOgBTOmx7IJJXojDASav+NsgXHFjHn+6RmwqsGPFgZpabWpeOdw==}
+  rehackt@0.1.0:
+    resolution: {integrity: sha512-7kRDOuLHB87D/JESKxQoRwv4DzbIdwkAGQ7p6QKGdVlY1IZheUnVhlk/4UZlNUVxdAXpyxikE3URsG067ybVzw==}
     peerDependencies:
       '@types/react': '*'
       react: '*'
@@ -1817,9 +1813,6 @@ packages:
 
   space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
-
-  sql.js@1.10.2:
-    resolution: {integrity: sha512-jnKFtdHxuVUNgu1vHwFoTjjwfTuVDVqzGpw7H05Zq3YMNMDOpLFyFGvpgTRIQGd/mqcYntuMy7iygYCytD62jQ==}
 
   stack-generator@2.0.10:
     resolution: {integrity: sha512-mwnua/hkqM6pF4k8SnmZ2zfETsRUpWXREfA/goT8SLCV4iOFa4bzOX2nDipWAZFPTjLvQB82f5yaodMVhK0yJQ==}
@@ -2146,7 +2139,7 @@ packages:
 
 snapshots:
 
-  '@apollo/client@3.9.9(graphql@16.8.1)':
+  '@apollo/client@3.10.1(graphql@16.8.1)':
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.8.1)
       '@wry/caches': 1.0.1
@@ -2157,7 +2150,7 @@ snapshots:
       hoist-non-react-statics: 3.3.2
       optimism: 0.18.0
       prop-types: 15.8.1
-      rehackt: 0.0.6
+      rehackt: 0.1.0
       response-iterator: 0.2.6
       symbol-observable: 4.0.0
       ts-invariant: 0.10.3
@@ -2257,7 +2250,7 @@ snapshots:
 
   '@blocksuite/presets@0.14.0-canary-202403282100-70199f1(yjs@13.6.14)':
     dependencies:
-      '@apollo/client': 3.9.9(graphql@16.8.1)
+      '@apollo/client': 3.10.1(graphql@16.8.1)
       '@blocksuite/block-std': 0.14.0-canary-202403282100-70199f1(@blocksuite/inline@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14))(@blocksuite/store@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14))
       '@blocksuite/blocks': 0.14.0-canary-202403282100-70199f1(yjs@13.6.14)
       '@blocksuite/global': 0.14.0-canary-202403282100-70199f1
@@ -3995,7 +3988,7 @@ snapshots:
 
   regenerator-runtime@0.14.1: {}
 
-  rehackt@0.0.6: {}
+  rehackt@0.1.0: {}
 
   rehype-parse@9.0.0:
     dependencies:
@@ -4155,8 +4148,6 @@ snapshots:
   source-map@0.5.6: {}
 
   space-separated-tokens@2.0.2: {}
-
-  sql.js@1.10.2: {}
 
   stack-generator@2.0.10:
     dependencies:

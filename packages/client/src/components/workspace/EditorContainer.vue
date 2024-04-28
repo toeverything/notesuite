@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { inject, onMounted, ref } from 'vue';
 import type { WorkspaceContext } from './WorkspaceLayout.vue';
-import { initEmptyDoc } from '@notesuite/common';
+import { initEmptyDoc } from '../../utils/editor';
 
 const { editor, collection } = inject<WorkspaceContext>('workspaceContext')!;
 const editorContainerRef = ref<HTMLDivElement>();

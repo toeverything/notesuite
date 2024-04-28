@@ -14,10 +14,12 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@blocksuite/blocks": "0.14.0-canary-202403282100-70199f1",
+    "@blocksuite/presets": "0.14.0-canary-202403282100-70199f1",
+    "@blocksuite/store": "0.14.0-canary-202403282100-70199f1",
     "@notesuite/common": "workspace:*",
     "@notesuite/drive": "workspace:*",
     "naive-ui": "^2.38.1",
-    "sql.js": "^1.10.2",
     "vue": "^3.4.21"
   },
   "devDependencies": {

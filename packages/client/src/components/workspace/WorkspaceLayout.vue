@@ -33,12 +33,16 @@ import {
 import Sidebar from './Sidebar.vue';
 import TopBar from './TopBar.vue';
 import EditorContainer from './EditorContainer.vue';
+import { DocCollection } from '@blocksuite/store';
 import {
   AffineEditorContainer,
-  DocCollection,
   // initEmptyDoc,
   initWorkspaceContext,
-} from '@notesuite/common';
+} from '../../utils/editor';
+
+const workspaceId = location.pathname.split('/')[1];
+const rootId = workspaceId;
+console.log(rootId);
 
 export interface WorkspaceContext {
   editor: AffineEditorContainer;
