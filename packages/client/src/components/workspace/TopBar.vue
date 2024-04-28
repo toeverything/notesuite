@@ -1,6 +1,6 @@
 <template>
   <div class="top-bar">
-    NoteSuite Client
+    Test Client
   </div>
 </template>
 
