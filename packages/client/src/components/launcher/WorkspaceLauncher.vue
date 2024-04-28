@@ -1,24 +1,32 @@
 <template>
   <div class="centered-container">
-    <div class="centered-content">
+    <div>
       <NLayout>
         <NLayoutHeader>
-          <h1>Welcome to NoteSuite!</h1>
+          <h1 class="centered-content">Welcome!</h1>
         </NLayoutHeader>
         <NLayoutContent>
           <NTabs type="card" paneStyle="width: 500px;">
-            <NTabPane name="create" tab="Create Workspace">
+            <NTabPane name="create" tab="Open Workspace">
               <NCard contentStyle="padding-bottom: 28px;">
-                <p>Create a new workspace from scratch.</p>
-                <NButton type="primary">Create</NButton>
+                <NSelect
+                  v-if="options.length > 0"
+                  placeholder="Select an existing workspace"
+                  v-model:value="selected"
+                  :options="options"
+                  @update:value="onSelected"
+                ></NSelect>
+                <p>{{ createWorkspaceMessage }}</p>
+                <NInputGroup>
+                  <NInput placeholder="Workspace name"></NInput>
+                  <NButton type="primary">Create</NButton>
+                </NInputGroup>
               </NCard>
             </NTabPane>
             <NTabPane name="import" tab="Import Workspace">
               <NCard>
                 <NUpload>
-                  <p>
-                    Import a local or remote workspace.
-                  </p>
+                  <p>Import a local workspace.</p>
                   <NButton type="primary">Import</NButton>
                 </NUpload>
               </NCard>
@@ -30,9 +38,13 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { computed, ref } from 'vue';
 import {
   NLayout,
+  NInput,
+  NInputGroup,
+  NSelect,
   NLayoutHeader,
   NLayoutContent,
   NCard,
@@ -41,6 +53,22 @@ import {
   NTabs,
   NTabPane,
 } from 'naive-ui';
+
+const selected = ref(null);
+
+const options = [
+  { label: 'My Workspace 1', value: 'foo' },
+  { label: 'My Workspace 2', value: 'bar' },
+];
+
+const createWorkspaceMessage = computed(() => {
+  if (options.length === 0) return 'Create a new workspace.';
+  return 'Or, create a new workspace.';
+});
+
+function onSelected(val: string) {
+  console.log(val);
+}
 </script>
 
 <style>
