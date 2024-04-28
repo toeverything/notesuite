@@ -4,13 +4,14 @@
   "repository": "toeverything/notesuite",
   "type": "module",
   "scripts": {
-    "start": "node ./src/server.cjs"
+    "start": "node ./src/server.js"
   },
   "exports": {
     ".": "./src/index.ts"
   },
   "dependencies": {
     "express": "^4.19.2",
+    "lowdb": "^7.0.1",
     "ws": "^8.16.0",
     "y-websocket": "^2.0.2"
   },
