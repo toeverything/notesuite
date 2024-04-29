@@ -19,13 +19,13 @@ importers:
     dependencies:
       '@blocksuite/blocks':
         specifier: 0.14.0-canary-202403282100-70199f1
-        version: 0.14.0-canary-202403282100-70199f1(yjs@13.6.14)
+        version: 0.14.0-canary-202403282100-70199f1(yjs@13.6.15)
       '@blocksuite/presets':
         specifier: 0.14.0-canary-202403282100-70199f1
-        version: 0.14.0-canary-202403282100-70199f1(yjs@13.6.14)
+        version: 0.14.0-canary-202403282100-70199f1(yjs@13.6.15)
       '@blocksuite/store':
         specifier: 0.14.0-canary-202403282100-70199f1
-        version: 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14)
+        version: 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15)
       '@notesuite/common':
         specifier: workspace:*
         version: link:../common
@@ -55,7 +55,17 @@ importers:
         specifier: ^2.0.7
         version: 2.0.7(typescript@5.4.3)
 
-  packages/common: {}
+  packages/common:
+    dependencies:
+      '@blocksuite/global':
+        specifier: ^0.13.0
+        version: 0.13.0
+      y-websocket:
+        specifier: ^2.0.2
+        version: 2.0.2(yjs@13.6.15)
+      yjs:
+        specifier: ^13.5.6
+        version: 13.6.15
 
   packages/drive:
     dependencies:
@@ -82,7 +92,7 @@ importers:
         version: 8.16.0
       y-websocket:
         specifier: ^2.0.2
-        version: 2.0.2(yjs@13.6.14)
+        version: 2.0.2(yjs@13.6.15)
     devDependencies:
       '@types/express':
         specifier: ^4.17.21
@@ -143,6 +153,9 @@ packages:
 
   '@blocksuite/blocks@0.14.0-canary-202403282100-70199f1':
     resolution: {integrity: sha512-lARP/OM5wYmZbydVRW4z/Q2P/qkp490OGW0NfYVOFQSS3EJlle+IfTZVWioF3W+kl8eomrP3q7rqepysElsaFQ==}
+
+  '@blocksuite/global@0.13.0':
+    resolution: {integrity: sha512-HSRm6umCKTHf7X2A99mWDnNBTnZQ1ebusNSKIgv0ZkUhRbltCVw00Ndd1k94AyriRClr545x+4WQPmOiePiJ/w==}
 
   '@blocksuite/global@0.14.0-canary-202403282100-70199f1':
     resolution: {integrity: sha512-NINmU/SnlYJhg7DwwCV1wiGh9lha95DvKEwv2LR3paWA4OfTpPmQ7PCl392zGv+jE3ybbqI0i2rxjMnwoythrA==}
@@ -2117,8 +2130,8 @@ packages:
   yallist@4.0.0:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
 
-  yjs@13.6.14:
-    resolution: {integrity: sha512-D+7KcUr0j+vBCUSKXXEWfA+bG4UQBviAwP3gYBhkstkgwy5+8diOPMx0iqLIOxNo/HxaREUimZRxqHGAHCL2BQ==}
+  yjs@13.6.15:
+    resolution: {integrity: sha512-moFv4uNYhp8BFxIk3AkpoAnnjts7gwdpiG8RtyFiKbMtxKCS0zVZ5wPaaGpwC3V2N/K8TK8MwtSI3+WO9CHWjQ==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
 
   yn@3.1.1:
@@ -2177,22 +2190,22 @@ snapshots:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
 
-  '@blocksuite/block-std@0.14.0-canary-202403282100-70199f1(@blocksuite/inline@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14))(@blocksuite/store@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14))':
+  '@blocksuite/block-std@0.14.0-canary-202403282100-70199f1(@blocksuite/inline@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15))(@blocksuite/store@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15))':
     dependencies:
       '@blocksuite/global': 0.14.0-canary-202403282100-70199f1
-      '@blocksuite/inline': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14)
-      '@blocksuite/store': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14)
+      '@blocksuite/inline': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15)
+      '@blocksuite/store': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15)
       lit: 3.1.2
       lz-string: 1.5.0
       w3c-keyname: 2.2.8
       zod: 3.22.4
 
-  '@blocksuite/blocks@0.14.0-canary-202403282100-70199f1(yjs@13.6.14)':
+  '@blocksuite/blocks@0.14.0-canary-202403282100-70199f1(yjs@13.6.15)':
     dependencies:
-      '@blocksuite/block-std': 0.14.0-canary-202403282100-70199f1(@blocksuite/inline@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14))(@blocksuite/store@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14))
+      '@blocksuite/block-std': 0.14.0-canary-202403282100-70199f1(@blocksuite/inline@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15))(@blocksuite/store@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15))
       '@blocksuite/global': 0.14.0-canary-202403282100-70199f1
-      '@blocksuite/inline': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14)
-      '@blocksuite/store': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14)
+      '@blocksuite/inline': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15)
+      '@blocksuite/store': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15)
       '@dotlottie/player-component': 2.7.12
       '@fal-ai/serverless-client': 0.9.0
       '@floating-ui/dom': 1.6.3
@@ -2237,25 +2250,29 @@ snapshots:
       - supports-color
       - yjs
 
+  '@blocksuite/global@0.13.0':
+    dependencies:
+      zod: 3.22.4
+
   '@blocksuite/global@0.14.0-canary-202403282100-70199f1':
     dependencies:
       zod: 3.22.4
 
-  '@blocksuite/inline@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14)':
+  '@blocksuite/inline@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15)':
     dependencies:
       '@blocksuite/global': 0.14.0-canary-202403282100-70199f1
       lit: 3.1.2
-      yjs: 13.6.14
+      yjs: 13.6.15
       zod: 3.22.4
 
-  '@blocksuite/presets@0.14.0-canary-202403282100-70199f1(yjs@13.6.14)':
+  '@blocksuite/presets@0.14.0-canary-202403282100-70199f1(yjs@13.6.15)':
     dependencies:
       '@apollo/client': 3.10.1(graphql@16.8.1)
-      '@blocksuite/block-std': 0.14.0-canary-202403282100-70199f1(@blocksuite/inline@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14))(@blocksuite/store@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14))
-      '@blocksuite/blocks': 0.14.0-canary-202403282100-70199f1(yjs@13.6.14)
+      '@blocksuite/block-std': 0.14.0-canary-202403282100-70199f1(@blocksuite/inline@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15))(@blocksuite/store@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15))
+      '@blocksuite/blocks': 0.14.0-canary-202403282100-70199f1(yjs@13.6.15)
       '@blocksuite/global': 0.14.0-canary-202403282100-70199f1
-      '@blocksuite/inline': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14)
-      '@blocksuite/store': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14)
+      '@blocksuite/inline': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15)
+      '@blocksuite/store': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15)
       '@fal-ai/serverless-client': 0.9.0
       '@floating-ui/dom': 1.6.3
       '@toeverything/theme': 0.7.29
@@ -2272,11 +2289,11 @@ snapshots:
       - supports-color
       - yjs
 
-  '@blocksuite/store@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14)':
+  '@blocksuite/store@0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15)':
     dependencies:
       '@blocksuite/global': 0.14.0-canary-202403282100-70199f1
-      '@blocksuite/inline': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.14)
-      '@blocksuite/sync': 0.14.0-canary-202403282100-70199f1(yjs@13.6.14)
+      '@blocksuite/inline': 0.14.0-canary-202403282100-70199f1(lit@3.1.2)(yjs@13.6.15)
+      '@blocksuite/sync': 0.14.0-canary-202403282100-70199f1(yjs@13.6.15)
       '@types/flexsearch': 0.7.6
       flexsearch: 0.7.43
       idb-keyval: 6.2.1
@@ -2284,18 +2301,18 @@ snapshots:
       merge: 2.1.1
       minimatch: 9.0.4
       nanoid: 5.0.6
-      y-protocols: 1.0.6(yjs@13.6.14)
-      yjs: 13.6.14
+      y-protocols: 1.0.6(yjs@13.6.15)
+      yjs: 13.6.15
       zod: 3.22.4
     transitivePeerDependencies:
       - lit
 
-  '@blocksuite/sync@0.14.0-canary-202403282100-70199f1(yjs@13.6.14)':
+  '@blocksuite/sync@0.14.0-canary-202403282100-70199f1(yjs@13.6.15)':
     dependencies:
       '@blocksuite/global': 0.14.0-canary-202403282100-70199f1
       idb: 8.0.0
-      y-protocols: 1.0.6(yjs@13.6.14)
-      yjs: 13.6.14
+      y-protocols: 1.0.6(yjs@13.6.15)
+      yjs: 13.6.15
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -4412,34 +4429,34 @@ snapshots:
   xtend@4.0.2:
     optional: true
 
-  y-leveldb@0.1.2(yjs@13.6.14):
+  y-leveldb@0.1.2(yjs@13.6.15):
     dependencies:
       level: 6.0.1
       lib0: 0.2.93
-      yjs: 13.6.14
+      yjs: 13.6.15
     optional: true
 
-  y-protocols@1.0.6(yjs@13.6.14):
+  y-protocols@1.0.6(yjs@13.6.15):
     dependencies:
       lib0: 0.2.93
-      yjs: 13.6.14
+      yjs: 13.6.15
 
-  y-websocket@2.0.2(yjs@13.6.14):
+  y-websocket@2.0.2(yjs@13.6.15):
     dependencies:
       lib0: 0.2.93
       lodash.debounce: 4.0.8
-      y-protocols: 1.0.6(yjs@13.6.14)
-      yjs: 13.6.14
+      y-protocols: 1.0.6(yjs@13.6.15)
+      yjs: 13.6.15
     optionalDependencies:
       ws: 6.2.2
-      y-leveldb: 0.1.2(yjs@13.6.14)
+      y-leveldb: 0.1.2(yjs@13.6.15)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
   yallist@4.0.0: {}
 
-  yjs@13.6.14:
+  yjs@13.6.15:
     dependencies:
       lib0: 0.2.93
 

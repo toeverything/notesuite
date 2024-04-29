@@ -1,16 +1,40 @@
 <template>
-  <NMenu :options="menuOptions" @update:value="selectDoc" />
+  <div style="display: flex; flex-direction: column; height: 100%">
+    <div style="flex: 1">
+      <NMenu :options="menuOptions" @update:value="selectDoc" />
+    </div>
+    <div style="padding: 10px">
+      <NDropdown
+        trigger="hover"
+        style="width: 220px"
+        :options="createButtonOptions"
+      >
+        <NButton block>Create</NButton>
+      </NDropdown>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { inject, ref, onMounted } from 'vue';
-import { NMenu } from 'naive-ui';
+import { NMenu, NButton, NDropdown } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
 import { Doc } from '@blocksuite/store';
 import type { WorkspaceContext } from './WorkspaceLayout.vue';
 
 const { editor, collection } = inject<WorkspaceContext>('workspaceContext')!;
 const menuOptions = ref<MenuOption[]>([]);
+const createButtonOptions = [
+  {
+    label: 'Block Document',
+    key: 'block document',
+  },
+  {
+    label: 'Markdown',
+    key: 'markdown',
+    disabled: true,
+  },
+];
 
 function updateDocs() {
   menuOptions.value = [...collection.docs.values()].map(doc => ({

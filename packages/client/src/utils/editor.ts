@@ -7,9 +7,9 @@ import { AffineSchemas } from '@blocksuite/blocks';
 export { Doc, DocCollection } from '@blocksuite/store';
 export { AffineEditorContainer } from '@blocksuite/presets';
 
-export function initWorkspaceContext() {
+export function initWorkspaceContext(id: string) {
   const schema = new Schema().register(AffineSchemas);
-  const collection = new DocCollection({ schema });
+  const collection = new DocCollection({ id, schema });
   const editor = new AffineEditorContainer();
   return { editor, collection };
 }

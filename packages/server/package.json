@@ -4,7 +4,8 @@
   "repository": "toeverything/notesuite",
   "type": "module",
   "scripts": {
-    "start": "node ./src/server.js"
+    "start": "node ./src/server.js",
+    "clean": "rm -rf ./.db db.json"
   },
   "exports": {
     ".": "./src/index.ts"

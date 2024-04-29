@@ -9,5 +9,9 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@blocksuite/global": "^0.13.0",
+    "y-websocket": "^2.0.2",
+    "yjs": "^13.5.6"
+  }
 }
