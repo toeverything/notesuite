@@ -8,6 +8,7 @@
         trigger="hover"
         style="width: 220px"
         :options="createButtonOptions"
+        @select="createDoc"
       >
         <NButton block>Create</NButton>
       </NDropdown>
@@ -21,6 +22,7 @@ import { NMenu, NButton, NDropdown } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
 import { Doc } from '@blocksuite/store';
 import type { WorkspaceContext } from './WorkspaceLayout.vue';
+import { createInitialDoc } from '../../utils/editor';
 
 const { editor, collection } = inject<WorkspaceContext>('workspaceContext')!;
 const menuOptions = ref<MenuOption[]>([]);
@@ -48,6 +50,10 @@ function selectDoc(key: string) {
   if (!doc) return;
   editor.doc = doc;
   updateDocs();
+}
+
+function createDoc(key: string) {
+  createInitialDoc(editor, collection);
 }
 
 onMounted(updateDocs);

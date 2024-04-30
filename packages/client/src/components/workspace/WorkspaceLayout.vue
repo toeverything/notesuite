@@ -34,30 +34,21 @@ import Sidebar from './Sidebar.vue';
 import TopBar from './TopBar.vue';
 import EditorContainer from './EditorContainer.vue';
 import { DocCollection } from '@blocksuite/store';
-import { CollabFS } from '@notesuite/common';
 import {
   AffineEditorContainer,
-  // initEmptyDoc,
   initWorkspaceContext,
 } from '../../utils/editor';
+import type { CollabFS } from '@notesuite/common';
 
 export interface WorkspaceContext {
   editor: AffineEditorContainer;
   collection: DocCollection;
+  client: CollabFS;
 }
 
 const workspaceId = location.pathname.split('/')[1];
 const context = initWorkspaceContext(workspaceId);
-provide('workspaceContext', context);
+provide<WorkspaceContext>('workspaceContext', context);
 // @ts-ignore
 window.context = context;
-
-const client = new CollabFS({
-  endpoint: 'localhost:3000',
-  indexId: workspaceId,
-  indexDoc: context.collection.doc,
-});
-client.slots.indexSynced.on(() => client.debug());
-
-// initEmptyDoc(context.editor, context.collection);
 </script>

@@ -4,20 +4,20 @@
 
 <script setup lang="ts">
 import { inject, onMounted, ref } from 'vue';
+import { DocCollection, Schema } from '../../utils/editor';
+import { AffineSchemas } from '../../utils/editor';
 import type { WorkspaceContext } from './WorkspaceLayout.vue';
-import { initEmptyDoc } from '../../utils/editor';
 
-const { editor, collection } = inject<WorkspaceContext>('workspaceContext')!;
+const { editor } = inject<WorkspaceContext>('workspaceContext')!;
 const editorContainerRef = ref<HTMLDivElement>();
 
-onMounted(() => {
-  // simulate async loading
-  setTimeout(() => {
-    // initEmptyDoc(editor, collection);
+const schema = new Schema().register(AffineSchemas);
+// placeholder doc with no blocks inside
+const placeholderDoc = new DocCollection({ schema }).createDoc();
 
-    if (!editorContainerRef.value) return;
-    if (!editor.doc) return;
-    editorContainerRef.value.appendChild(editor);
-  });
+onMounted(() => {
+  if (!editorContainerRef.value) return;
+  editor.doc = placeholderDoc;
+  editorContainerRef.value.appendChild(editor);
 });
 </script>

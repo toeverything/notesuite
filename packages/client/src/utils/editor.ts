@@ -1,20 +1,29 @@
 import '@blocksuite/presets/themes/affine.css';
 import { AffineEditorContainer } from '@blocksuite/presets';
-import { Doc, Schema } from '@blocksuite/store';
-import { DocCollection } from '@blocksuite/store';
+import { DocCollection, Doc, Schema } from '@blocksuite/store';
 import { AffineSchemas } from '@blocksuite/blocks';
+import { CollabFS } from '@notesuite/common';
 
-export { Doc, DocCollection } from '@blocksuite/store';
+// direct importing in vue components meets error in vscode
+export { AffineSchemas } from '@blocksuite/blocks';
+export { DocCollection, Schema } from '@blocksuite/store';
 export { AffineEditorContainer } from '@blocksuite/presets';
 
 export function initWorkspaceContext(id: string) {
   const schema = new Schema().register(AffineSchemas);
   const collection = new DocCollection({ id, schema });
   const editor = new AffineEditorContainer();
-  return { editor, collection };
+
+  const client = new CollabFS({
+    endpoint: 'localhost:3000',
+    indexId: id,
+    indexDoc: collection.doc,
+  });
+  client.slots.indexSynced.on(() => client.debug());
+  return { editor, collection, client };
 }
 
-export function initEmptyDoc(
+export function createInitialDoc(
   editor: AffineEditorContainer,
   collection: DocCollection
 ) {
