@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "author": "toeverything",
+  "scripts": {
+    "clean": "pnpm --filter @notesuite/server clean"
+  },
   "devDependencies": {
     "typescript": "^5.4.3",
     "vite": "^5.2.6"

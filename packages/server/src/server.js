@@ -4,7 +4,9 @@ import express from 'express';
 import cors from 'cors';
 import { WebSocketServer } from 'ws';
 import { JSONFilePreset } from 'lowdb/node';
-import { setupWSConnection, docs } from 'y-websocket/bin/utils';
+import bodyParser from 'body-parser';
+import * as Y from 'yjs';
+import { setupWSConnection, docs, getYDoc } from 'y-websocket/bin/utils';
 
 const app = express();
 const port = parseInt(process.env.PORT || '3000');
@@ -21,6 +23,7 @@ await db.write();
 
 app.use(express.static('./'));
 app.use(cors());
+app.use(bodyParser.raw({ type: 'application/octet-stream' }));
 app.use(express.json());
 
 app.get('/api/workspaces', (req, res) => {
@@ -35,6 +38,29 @@ app.post('/api/workspaces', async (req, res) => {
   db.data.workspaces.push({ id, name, rootId });
   await db.write();
   res.status(201).send({ id, name, rootId });
+});
+
+app.post('/api/sync/:id', (req, res) => {
+  const id = req.params.id;
+  const roomDoc = getYDoc(id);
+  const clientUpdate = new Uint8Array(req.body);
+
+  const tempDoc = new Y.Doc();
+  Y.applyUpdate(tempDoc, clientUpdate);
+  const clientStateVector = Y.encodeStateVector(tempDoc);
+  const serverStateVector = Y.encodeStateVector(roomDoc);
+
+  const diffClientNeeds = Y.diffUpdate(
+    Y.encodeStateAsUpdate(roomDoc),
+    clientStateVector
+  );
+  const diffServerNeeds = Y.diffUpdate(clientUpdate, serverStateVector);
+
+  Y.applyUpdate(roomDoc, diffServerNeeds);
+  tempDoc.destroy();
+
+  res.type('application/octet-stream');
+  res.send(Buffer.from(diffClientNeeds));
 });
 
 server.on('upgrade', (request, socket, head) => {

@@ -19,7 +19,6 @@ export function initWorkspaceContext(id: string) {
     indexId: id,
     indexDoc: collection.doc,
   });
-  client.slots.indexSynced.on(() => client.debug());
   return { editor, collection, client };
 }
 
