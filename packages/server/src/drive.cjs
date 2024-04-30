@@ -1,4 +1,4 @@
-import { v2 as webdav } from 'webdav-server';
+const webdav = require('webdav-server').v2;
 
 const userManager = new webdav.SimpleUserManager();
 const privilegeManager = new webdav.SimplePathPrivilegeManager();

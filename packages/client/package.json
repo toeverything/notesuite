@@ -18,7 +18,6 @@
     "@blocksuite/presets": "0.14.0-canary-202403282100-70199f1",
     "@blocksuite/store": "0.14.0-canary-202403282100-70199f1",
     "@notesuite/common": "workspace:*",
-    "@notesuite/drive": "workspace:*",
     "naive-ui": "^2.38.1",
     "vue": "^3.4.21"
   },

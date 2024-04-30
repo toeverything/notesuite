@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node ./src/server.cjs",
+    "start:drive": "node ./src/drive.cjs",
     "clean": "rm -rf ./.db db.json"
   },
   "exports": {
@@ -15,6 +16,7 @@
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "lowdb": "1.0.0",
+    "webdav-server": "^2.6.2",
     "ws": "^8.16.0",
     "y-websocket": "^2.0.2",
     "yjs": "^13.5.6"
