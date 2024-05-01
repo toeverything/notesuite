@@ -11,7 +11,7 @@
       "env": {
         "YPERSISTENCE": "./.db"
       },
-      "program": "${workspaceFolder}/packages/server/src/server.cjs",
+      "program": "${workspaceFolder}/packages/server/src/server.js",
       "cwd": "${workspaceFolder}/packages/server"
     }
   ]

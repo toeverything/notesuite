@@ -1,13 +1,12 @@
 // @ts-check
 
-const express = require('express');
-const cors = require('cors');
-const { WebSocketServer } = require('ws');
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
-const bodyParser = require('body-parser');
-const Y = require('yjs');
-const { setupWSConnection, docs, getYDoc } = require('y-websocket/bin/utils');
+import express from 'express';
+import cors from 'cors';
+import { WebSocketServer } from 'ws';
+import { JSONFilePreset } from 'lowdb/node';
+import bodyParser from 'body-parser';
+import * as Y from 'yjs';
+import { setupWSConnection, docs, getYDoc } from './third-party/y-websocket.js';
 
 const app = express();
 const port = parseInt(process.env.PORT || '3000');
@@ -16,11 +15,11 @@ const server = app.listen(port, () =>
   console.log(`Server started on http://localhost:${port}`)
 );
 
-const adapter = new FileSync('db.json');
-const db = low(adapter);
 /** @type {{workspaces: {id: string, rootId: string, name: string}[]}} */
 const defaultData = { workspaces: [] };
-db.defaults(defaultData).write();
+const db = await JSONFilePreset('./db.json', defaultData);
+await db.read();
+await db.write();
 
 app.use(express.static('./'));
 app.use(cors());
@@ -28,7 +27,7 @@ app.use(bodyParser.raw({ type: 'application/octet-stream' }));
 app.use(express.json());
 
 app.get('/api/workspaces', (req, res) => {
-  const workspaces = db.get('workspaces');
+  const workspaces = db.data.workspaces;
   res.send(workspaces);
 });
 
@@ -36,8 +35,7 @@ app.post('/api/workspaces', async (req, res) => {
   const { name } = req.body;
   const id = `${Date.now()}`;
   const rootId = id;
-  const workspaces = db.get('workspaces');
-  // @ts-ignore
+  const workspaces = db.data.workspaces;
   workspaces.push({ id, name, rootId });
   db.write();
   res.status(201).send({ id, name, rootId });
