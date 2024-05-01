@@ -3,19 +3,27 @@ import * as Y from 'yjs';
 import { CollabFS, IndexItem } from '@notesuite/common/dist/index.js';
 import type { AppContext } from './utils.js';
 
-function getIndexId(context: AppContext) {
+function getWorkspace(context: AppContext) {
   const id = context.db.data.activeWorkspaceId;
   if (!id) throw new Error('Active workspace not found');
-  return id;
+  const name =
+    context.db.data.workspaces.find(w => w.id === id)?.name || 'untitled';
+  return { id, name };
 }
 
 async function wait(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function setFileList(index: IndexItem[], server: webdav.WebDAVServer) {
+function setFileList(
+  server: webdav.WebDAVServer,
+  workspaceName: string,
+  index: IndexItem[]
+) {
+  const vfs = new webdav.VirtualFileSystem();
+
   for (const item of index) {
-    server.rootFileSystem().addSubTree(
+    vfs.addSubTree(
       server.createExternalContext(),
       {
         [item.name + '.doc.json']: webdav.ResourceType.File,
@@ -23,6 +31,10 @@ function setFileList(index: IndexItem[], server: webdav.WebDAVServer) {
       () => {}
     );
   }
+
+  server.setFileSystem(`/${workspaceName}`, vfs, success => {
+    console.log('Virtual file system mounted:', success);
+  });
 }
 
 export async function initWebDAVServer(context: AppContext) {
@@ -48,16 +60,16 @@ export async function initWebDAVServer(context: AppContext) {
     requireAuthentification: false,
   });
 
-  const indexId = getIndexId(context);
+  const { id, name } = getWorkspace(context);
   const indexDoc = new Y.Doc();
   const client = new CollabFS({
     endpoint: 'localhost:3000',
-    indexId,
+    indexId: id,
     indexDoc,
   });
 
   client.on('indexSynced', () => {
-    setFileList(client.index, server);
+    setFileList(server, name, client.index);
     server.start(() => {
       console.log('WebDAV server started on http://localhost:1900');
     });
