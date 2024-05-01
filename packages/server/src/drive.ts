@@ -18,7 +18,7 @@ function setFileList(index: IndexItem[], server: webdav.WebDAVServer) {
     server.rootFileSystem().addSubTree(
       server.createExternalContext(),
       {
-        [item.name + '.json']: webdav.ResourceType.File,
+        [item.name + '.doc.json']: webdav.ResourceType.File,
       },
       () => {}
     );
