@@ -1,6 +1,6 @@
 import { v2 as webdav } from 'webdav-server';
 import * as Y from 'yjs';
-import { CollabFS } from '@notesuite/common/dist/index.js';
+import { CollabFS, IndexItem } from '@notesuite/common/dist/index.js';
 import type { AppContext } from './utils.js';
 
 function getIndexId(context: AppContext) {
@@ -9,7 +9,26 @@ function getIndexId(context: AppContext) {
   return id;
 }
 
-export function initWebDAVServer(context: AppContext) {
+async function wait(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function setFileList(index: IndexItem[], server: webdav.WebDAVServer) {
+  for (const item of index) {
+    server.rootFileSystem().addSubTree(
+      server.createExternalContext(),
+      {
+        [item.name + '.json']: webdav.ResourceType.File,
+      },
+      () => {}
+    );
+  }
+}
+
+export async function initWebDAVServer(context: AppContext) {
+  // XXX: wait for database ydocs
+  await wait(1000);
+
   const userManager = new webdav.SimpleUserManager();
   const privilegeManager = new webdav.SimplePathPrivilegeManager();
 
@@ -29,20 +48,6 @@ export function initWebDAVServer(context: AppContext) {
     requireAuthentification: false,
   });
 
-  server.rootFileSystem().addSubTree(
-    server.createExternalContext(),
-    {
-      folder1: {
-        'file1.txt': webdav.ResourceType.File,
-        folder2: {
-          'file2.txt': webdav.ResourceType.File,
-        },
-      },
-      'root.txt': webdav.ResourceType.File,
-    },
-    () => {}
-  );
-
   const indexId = getIndexId(context);
   const indexDoc = new Y.Doc();
   const client = new CollabFS({
@@ -50,8 +55,9 @@ export function initWebDAVServer(context: AppContext) {
     indexId,
     indexDoc,
   });
+
   client.on('indexSynced', () => {
-    console.log('Index synced');
+    setFileList(client.index, server);
     server.start(() => {
       console.log('WebDAV server started on http://localhost:1900');
     });

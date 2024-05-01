@@ -11,6 +11,11 @@ interface Options {
   interval?: number;
 }
 
+export interface IndexItem {
+  name: string;
+  id: string;
+}
+
 interface CollabFSEvents {
   indexSynced: (id: string) => void;
 }
@@ -43,6 +48,12 @@ export class CollabFS extends ObservableV2<CollabFSEvents> {
     this.syncIntervalId = setInterval(() => {
       // this.syncInactiveDocs();
     }, this.options.interval || 3000);
+  }
+
+  get index() {
+    const meta = this.indexDoc.getMap('meta') as Y.Map<any>;
+    const docs = meta.get('pages').toJSON() as { title: string; id: string }[];
+    return docs.map(a => ({ name: a.title, id: a.id }));
   }
 
   async connectDoc(doc: Y.Doc, id: string) {
