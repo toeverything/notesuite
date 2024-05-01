@@ -1,5 +1,3 @@
-// @ts-check
-
 import { v2 as webdav } from 'webdav-server';
 
 const userManager = new webdav.SimpleUserManager();

@@ -1,5 +1,3 @@
-// @ts-check
-
 import express from 'express';
 import cors from 'cors';
 import { WebSocketServer } from 'ws';

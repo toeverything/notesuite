@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "NODE_OPTIONS=--import=./register.js node src/server.ts",
-    "start:drive": "node ./src/drive.js",
+    "start:drive": "NODE_OPTIONS=--import=./register.js node ./src/drive.ts",
     "clean": "rm -rf ./.db db.json"
   },
   "dependencies": {
