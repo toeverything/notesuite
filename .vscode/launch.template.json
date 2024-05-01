@@ -10,7 +10,7 @@
         "NODE_OPTIONS": "--import=./register.js",
         "YPERSISTENCE": "./.db"
       },
-      "program": "${workspaceFolder}/packages/server/src/server.ts",
+      "program": "${workspaceFolder}/packages/server/src/index.ts",
       "cwd": "${workspaceFolder}/packages/server"
     }
   ]

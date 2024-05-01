@@ -4,7 +4,7 @@
   "repository": "toeverything/notesuite",
   "type": "module",
   "scripts": {
-    "start": "NODE_OPTIONS=--import=./register.js node src/server.ts",
+    "start": "NODE_OPTIONS=--import=./register.js node src/index.ts",
     "start:drive": "NODE_OPTIONS=--import=./register.js node ./src/drive.ts",
     "clean": "rm -rf ./.db db.json"
   },
