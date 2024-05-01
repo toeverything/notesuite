@@ -38,6 +38,7 @@ export async function initAppContext(): Promise<AppContext> {
 
 async function initDB() {
   const defaultData: {
+    activeWorkspaceId?: string;
     workspaces: { id: string; rootId: string; name: string }[];
   } = { workspaces: [] };
   const db = await JSONFilePreset('./db.json', defaultData);

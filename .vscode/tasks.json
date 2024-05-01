@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Client Dev",
+      "type": "npm",
+      "script": "dev",
+      "path": "packages/client/",
+      "problemMatcher": [],
+      "isBackground": true
+    },
+    {
+      "label": "Run Common Dev",
+      "type": "npm",
+      "script": "dev",
+      "path": "packages/common/",
+      "problemMatcher": [],
+      "isBackground": true
+    }
+  ]
+}

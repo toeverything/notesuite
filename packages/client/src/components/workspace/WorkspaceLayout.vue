@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { provide } from 'vue';
+import { provide, onMounted } from 'vue';
 import {
   NMessageProvider,
   NLayout,
@@ -38,6 +38,7 @@ import {
   AffineEditorContainer,
   initWorkspaceContext,
 } from '../../utils/editor';
+import { api } from '../../utils/api';
 import type { CollabFS } from '@notesuite/common';
 
 export interface WorkspaceContext {
@@ -51,4 +52,6 @@ const context = initWorkspaceContext(workspaceId);
 provide<WorkspaceContext>('workspaceContext', context);
 // @ts-ignore
 window.context = context;
+
+onMounted(async () => await api.setActiveWorkspace(workspaceId));
 </script>

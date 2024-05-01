@@ -26,7 +26,14 @@ async function createWorkspace(name: string) {
   return workspace;
 }
 
+async function setActiveWorkspace(id: string) {
+  await fetch(`${endpoint}/api/workspaces/active/${id}`, {
+    method: 'PUT',
+  });
+}
+
 export const api = {
   fetchWorkspaces,
   createWorkspace,
+  setActiveWorkspace,
 };

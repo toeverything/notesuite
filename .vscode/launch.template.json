@@ -2,9 +2,9 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug Backend",
       "type": "node",
       "request": "launch",
-      "name": "Server",
       "skipFiles": ["<node_internals>/**"],
       "env": {
         "NODE_OPTIONS": "--import=./register.js",
@@ -12,6 +12,13 @@
       },
       "program": "${workspaceFolder}/packages/server/src/index.ts",
       "cwd": "${workspaceFolder}/packages/server"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug Backend + Common",
+      "configurations": ["Debug Backend"],
+      "preLaunchTask": "Run Common Dev"
     }
   ]
 }

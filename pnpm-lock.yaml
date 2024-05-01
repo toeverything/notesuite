@@ -57,6 +57,12 @@ importers:
       '@blocksuite/global':
         specifier: ^0.13.0
         version: 0.13.0
+      lib0:
+        specifier: ^0.2.93
+        version: 0.2.93
+      ws:
+        specifier: ^8.16.0
+        version: 8.16.0
       y-websocket:
         specifier: ^2.0.2
         version: 2.0.2(yjs@13.6.15)

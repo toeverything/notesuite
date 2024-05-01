@@ -1,5 +1,8 @@
 import * as Y from 'yjs';
 import { WebsocketProvider } from 'y-websocket';
+import { ObservableV2 } from 'lib0/observable';
+// @ts-ignore
+import { WebSocket } from './polyfill.cjs';
 
 interface Options {
   endpoint: string;
@@ -8,7 +11,11 @@ interface Options {
   interval?: number;
 }
 
-export class CollabFS {
+interface CollabFSEvents {
+  indexSynced: (id: string) => void;
+}
+
+export class CollabFS extends ObservableV2<CollabFSEvents> {
   private options: Options;
   private indexDoc: Y.Doc;
   private activeDoc: Y.Doc | null = null;
@@ -19,14 +26,20 @@ export class CollabFS {
   private syncIntervalId: number;
 
   constructor(options: Options) {
+    super();
     this.options = options;
     this.indexDoc = options.indexDoc;
     this.indexProvider = new WebsocketProvider(
       `ws://${options.endpoint}`,
       options.indexId,
-      options.indexDoc
+      options.indexDoc,
+      {
+        WebSocketPolyfill: WebSocket,
+      }
     );
-    // this.indexProvider.on('sync', () => {});
+    this.indexProvider.on('sync', () => {
+      this.emit('indexSynced', [options.indexId]);
+    });
     this.syncIntervalId = setInterval(() => {
       // this.syncInactiveDocs();
     }, this.options.interval || 3000);

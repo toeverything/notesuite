@@ -1,5 +1,13 @@
 import { v2 as webdav } from 'webdav-server';
+import * as Y from 'yjs';
+import { CollabFS } from '@notesuite/common/dist/index.js';
 import type { AppContext } from './utils.js';
+
+function getIndexId(context: AppContext) {
+  const id = context.db.data.activeWorkspaceId;
+  if (!id) throw new Error('Active workspace not found');
+  return id;
+}
 
 export function initWebDAVServer(context: AppContext) {
   const userManager = new webdav.SimpleUserManager();
@@ -35,7 +43,17 @@ export function initWebDAVServer(context: AppContext) {
     () => {}
   );
 
-  server.start(() => {
-    console.log('WebDAV server started on http://localhost:1900');
+  const indexId = getIndexId(context);
+  const indexDoc = new Y.Doc();
+  const client = new CollabFS({
+    endpoint: 'localhost:3000',
+    indexId,
+    indexDoc,
+  });
+  client.on('indexSynced', () => {
+    console.log('Index synced');
+    server.start(() => {
+      console.log('WebDAV server started on http://localhost:1900');
+    });
   });
 }

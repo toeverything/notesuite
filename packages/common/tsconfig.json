@@ -4,7 +4,7 @@
     "module": "NodeNext",
     "rootDir": "./src/",
     "outDir": "./dist/",
-    "noEmit": false
+    "declaration": true
   },
   "include": ["./src"]
 }
