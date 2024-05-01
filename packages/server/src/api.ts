@@ -2,11 +2,11 @@ import { Express } from 'express';
 import * as Y from 'yjs';
 // @ts-ignore
 import { getYDoc } from './third-party/y-websocket.js';
-import { initDB } from './utils.js';
+import type { AppContext } from './utils.js';
 
-const db = await initDB();
+export function defineAPI(context: AppContext) {
+  const { express: app, db } = context;
 
-export function defineAPI(app: Express) {
   app.get('/api/workspaces', (req, res) => {
     const workspaces = db.data.workspaces;
     res.send(workspaces);

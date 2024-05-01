@@ -4,10 +4,23 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { JSONFilePreset } from 'lowdb/node';
 import type http from 'http';
-// @ts-ignore
-import { setupWSConnection, docs } from './third-party/y-websocket.js';
+import {
+  setupWSConnection,
+  docs as serverDocs,
+  // @ts-ignore
+} from './third-party/y-websocket.js';
+import * as Y from 'yjs';
 
-export function initExpressApp() {
+const docs = serverDocs as Map<string, Y.Doc>;
+
+export interface AppContext {
+  express: express.Express;
+  httpServer: http.Server;
+  docs: Map<string, Y.Doc>;
+  db: Awaited<ReturnType<typeof initDB>>;
+}
+
+export async function initAppContext(): Promise<AppContext> {
   const app = express();
   app.use(express.static('./'));
   app.use(cors());
@@ -18,20 +31,21 @@ export function initExpressApp() {
   const httpServer = app.listen(port, () =>
     console.log(`Server started on http://localhost:${port}`)
   );
-  return { app, httpServer };
+
+  const db = await initDB();
+  return { express: app, httpServer, db, docs };
 }
 
-export async function initDB() {
+async function initDB() {
   const defaultData: {
     workspaces: { id: string; rootId: string; name: string }[];
   } = { workspaces: [] };
   const db = await JSONFilePreset('./db.json', defaultData);
-  await db.read();
-  await db.write();
   return db;
 }
 
-export function initWSServer(httpServer: http.Server) {
+export function initWSServer(context: AppContext) {
+  const { httpServer } = context;
   const wss = new WebSocketServer({ noServer: true });
   httpServer.on('upgrade', (request, socket, head) => {
     const { url = '' } = request;

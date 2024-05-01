@@ -1,8 +1,10 @@
 
 import { defineAPI } from './api.js';
-import { initExpressApp, initWSServer } from './utils.js';
+import { initWebDAVServer } from './drive.js';
+import { initAppContext, initWSServer } from './utils.js';
 
-const { app, httpServer } = initExpressApp();
+const context = await initAppContext();
 
-defineAPI(app);
-initWSServer(httpServer);
+defineAPI(context);
+initWSServer(context);
+initWebDAVServer(context);

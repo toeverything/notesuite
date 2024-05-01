@@ -66,6 +66,9 @@ importers:
 
   packages/server:
     dependencies:
+      '@notesuite/common':
+        specifier: workspace:*
+        version: link:../common
       body-parser:
         specifier: ^1.20.2
         version: 1.20.2
