@@ -6,6 +6,7 @@ import { WebSocketServer } from 'ws';
 import { JSONFilePreset } from 'lowdb/node';
 import bodyParser from 'body-parser';
 import * as Y from 'yjs';
+// @ts-ignore
 import { setupWSConnection, docs, getYDoc } from './third-party/y-websocket.js';
 
 const app = express();
@@ -15,8 +16,9 @@ const server = app.listen(port, () =>
   console.log(`Server started on http://localhost:${port}`)
 );
 
-/** @type {{workspaces: {id: string, rootId: string, name: string}[]}} */
-const defaultData = { workspaces: [] };
+const defaultData: {
+  workspaces: { id: string; rootId: string; name: string }[];
+} = { workspaces: [] };
 const db = await JSONFilePreset('./db.json', defaultData);
 await db.read();
 await db.write();

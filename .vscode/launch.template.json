@@ -5,13 +5,12 @@
       "type": "node",
       "request": "launch",
       "name": "Server",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "skipFiles": ["<node_internals>/**"],
       "env": {
+        "NODE_OPTIONS": "--import=./register.js",
         "YPERSISTENCE": "./.db"
       },
-      "program": "${workspaceFolder}/packages/server/src/server.js",
+      "program": "${workspaceFolder}/packages/server/src/server.ts",
       "cwd": "${workspaceFolder}/packages/server"
     }
   ]
