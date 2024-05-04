@@ -32,9 +32,7 @@ function setFileList(
     );
   }
 
-  server.setFileSystem(`/${workspaceName}`, vfs, success => {
-    console.log('Virtual file system mounted:', success);
-  });
+  server.setFileSystemAsync(`/${workspaceName}`, vfs);
 }
 
 export async function initWebDAVServer(context: AppContext) {

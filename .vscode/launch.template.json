@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Backend",
+      "name": "Backend",
       "type": "node",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
@@ -12,13 +12,23 @@
       },
       "program": "${workspaceFolder}/packages/server/src/index.ts",
       "cwd": "${workspaceFolder}/packages/server"
+    },
+    {
+      "name": "Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/extension"
+      ],
+      "outFiles": ["${workspaceFolder}/packages/extension/out/**/*.js"],
+      "preLaunchTask": "${defaultBuildTask}"
     }
   ],
   "compounds": [
     {
-      "name": "Debug Backend + Common",
-      "configurations": ["Debug Backend"],
-      "preLaunchTask": "Run Common Dev"
+      "name": "Backend + Common",
+      "configurations": ["Backend"],
+      "preLaunchTask": "Common Dev"
     }
   ]
 }

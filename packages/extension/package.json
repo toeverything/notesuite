@@ -1,0 +1,86 @@
+{
+  "name": "@notesuite/extension",
+  "displayName": "Note",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "noteApp",
+          "title": "Notes",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "noteApp": [
+        {
+          "id": "noteListView",
+          "name": "Notes"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "noteListView",
+        "contents": "Welcome to Notes!\n[Learn More](command:notesuite.openBlockEditor)"
+      }
+    ],
+    "commands": [
+      {
+        "command": "notesuite.openBlockEditor",
+        "title": "Open Note Editor"
+      },
+      {
+        "command": "notesuite.openNativeEditor",
+        "title": "Open My Document"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "notesuite.openBlockEditor",
+          "when": "view == noteListView"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "notesuite.openBlockEditor",
+          "when": "view == noteListView"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "pnpm run compile && pnpm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.87.0",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "@vscode/test-cli": "^0.0.8",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.57.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "lib0": "^0.2.93",
+    "y-websocket": "^2.0.2",
+    "yjs": "^13.5.6"
+  }
+}

@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Run Client Dev",
+      "label": "Client Dev",
       "type": "npm",
       "script": "dev",
       "path": "packages/client/",
@@ -10,12 +10,27 @@
       "isBackground": true
     },
     {
-      "label": "Run Common Dev",
+      "label": "Common Dev",
       "type": "npm",
       "script": "dev",
       "path": "packages/common/",
       "problemMatcher": [],
       "isBackground": true
+    },
+    {
+      "label": "Extension Dev",
+      "type": "npm",
+      "script": "watch",
+      "path": "packages/extension/",
+      "problemMatcher": "$tsc-watch",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
   ]
 }
