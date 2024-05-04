@@ -38,9 +38,6 @@ function setFileList(
 }
 
 export async function initWebDAVServer(context: AppContext) {
-  // XXX: wait for database ydocs
-  await wait(1000);
-
   const userManager = new webdav.SimpleUserManager();
   const privilegeManager = new webdav.SimplePathPrivilegeManager();
 
