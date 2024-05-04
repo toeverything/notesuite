@@ -35,9 +35,9 @@ export function registerAPI(context: AppContext) {
     res.status(200).send();
   });
 
-  app.post('/api/sync/:id', (req, res) => {
+  app.post('/api/sync/:id', async (req, res) => {
     const id = req.params.id;
-    const roomDoc = getYDoc(id);
+    const roomDoc = await getYDoc(id);
     const clientUpdate = new Uint8Array(req.body);
 
     const tempDoc = new Y.Doc();
