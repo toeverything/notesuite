@@ -6,6 +6,7 @@ import { JSONFilePreset } from 'lowdb/node';
 import type http from 'http';
 import {
   setupWSConnection,
+  getYDoc,
   docs as serverDocs,
   // @ts-ignore
 } from './third-party/y-websocket.js';
@@ -63,6 +64,8 @@ export function initWSServer(context: AppContext) {
 
   wss.on('connection', (ws, request) => {
     setupWSConnection(ws, request, { gc: true });
-    console.log([...docs.keys()]);
+    console.log('doc count', [...docs.keys()].length);
   });
+
+  getYDoc(context.db.data.activeWorkspaceId);
 }
