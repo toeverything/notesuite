@@ -4,6 +4,8 @@
   "private": true,
   "author": "toeverything",
   "scripts": {
+    "dev:frontend": "pnpm --filter @notesuite/client dev & pnpm --filter @notesuite/common dev",
+    "dev:backend": "pnpm --filter @notesuite/server start",
     "clean": "pnpm --filter @notesuite/server clean"
   },
   "devDependencies": {

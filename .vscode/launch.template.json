@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Backend",
+      "name": "Server",
       "type": "node",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
@@ -22,13 +22,6 @@
       ],
       "outFiles": ["${workspaceFolder}/packages/extension/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}"
-    }
-  ],
-  "compounds": [
-    {
-      "name": "Backend + Common",
-      "configurations": ["Backend"],
-      "preLaunchTask": "Common Dev"
     }
   ]
 }
