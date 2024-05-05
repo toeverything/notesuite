@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-function getWebviewContent(json: string) {
+function getWebviewContent(id: string) {
   return /* html */ `
 <!doctype html>
 <html lang="en">
@@ -22,7 +22,7 @@ function getWebviewContent(json: string) {
     </style>
   </head>
   <body>
-    <pre id="content" style="display:none;">${json}</pre>
+    <pre id="content" style="display:none;">{"id":"${id}"}</pre>
     <script type="module" src="http://localhost:5173/@vite/client"></script>
     <script type="module" src="http://localhost:5173/src/extension/main.ts"></script>
   </body>
@@ -30,7 +30,7 @@ function getWebviewContent(json: string) {
   `;
 }
 
-export function openWebview(context: vscode.ExtensionContext, content: string) {
+export function openWebview(context: vscode.ExtensionContext, id: string) {
   const panel = vscode.window.createWebviewPanel(
     'notesuite',
     'Block Editor',
@@ -39,5 +39,5 @@ export function openWebview(context: vscode.ExtensionContext, content: string) {
       enableScripts: true,
     }
   );
-  panel.webview.html = getWebviewContent(content);
+  panel.webview.html = getWebviewContent(id);
 }
