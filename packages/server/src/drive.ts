@@ -15,6 +15,14 @@ async function wait(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function createPlaceholderDoc(id: string) {
+  const str = JSON.stringify({
+    '//': 'This is a placeholder document for the file',
+    id,
+  });
+  return Buffer.from(str);
+}
+
 function setFileList(
   server: webdav.WebDAVServer,
   workspaceName: string,
@@ -26,7 +34,7 @@ function setFileList(
     vfs.addSubTree(
       server.createExternalContext(),
       {
-        [item.name + '.doc.json']: webdav.ResourceType.File,
+        [item.name + '.doc.json']: createPlaceholderDoc(item.id),
       },
       () => {}
     );
