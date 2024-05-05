@@ -20,6 +20,8 @@ interface CollabFSEvents {
   indexSynced: (id: string) => void;
 }
 
+export { WebsocketProvider } from 'y-websocket';
+
 export class CollabFS extends ObservableV2<CollabFSEvents> {
   private options: Options;
   private indexDoc: Y.Doc;

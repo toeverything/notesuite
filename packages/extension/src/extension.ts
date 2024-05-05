@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { NoteListDataProvider } from './utils';
-import { createWebview } from './webview';
+import { openWebview } from './webview';
 
 class MarkdownFileSystemProvider implements vscode.FileSystemProvider {
   onDidChangeFile: vscode.Event<vscode.FileChangeEvent[]> =
@@ -42,7 +42,14 @@ export async function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand('notesuite.openBlockEditor', () => {
-      createWebview(context);
+      const editor = vscode.window.activeTextEditor;
+      if (editor) {
+        const { document } = editor;
+        if (document.fileName.endsWith('.doc.json')) {
+          const currentText = document.getText();
+          openWebview(context, currentText);
+        }
+      }
     })
   );
 
