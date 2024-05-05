@@ -1,7 +1,6 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { NoteListDataProvider, getWebviewContent } from './utils';
+import { NoteListDataProvider } from './utils';
+import { createWebview } from './webview';
 
 class MarkdownFileSystemProvider implements vscode.FileSystemProvider {
   onDidChangeFile: vscode.Event<vscode.FileChangeEvent[]> =
@@ -33,26 +32,17 @@ class MarkdownFileSystemProvider implements vscode.FileSystemProvider {
 }
 
 export async function activate(context: vscode.ExtensionContext) {
-  const path = context.globalStorageUri.fsPath;
-  console.log(`Extension "notesuite" is now active! Path: ${path}`);
+  console.log('Extension "notesuite" is now active!');
 
   const noteListProvider = new NoteListDataProvider();
   vscode.window.registerTreeDataProvider('noteListView', noteListProvider);
 
   const { init } = await import('./main.mjs');
-  await init(noteListProvider, path);
+  await init(noteListProvider);
 
   context.subscriptions.push(
     vscode.commands.registerCommand('notesuite.openBlockEditor', () => {
-      const panel = vscode.window.createWebviewPanel(
-        'notesuite',
-        'Block Editor',
-        vscode.ViewColumn.One,
-        {
-          enableScripts: true,
-        }
-      );
-      panel.webview.html = getWebviewContent();
+      createWebview(context);
     })
   );
 
