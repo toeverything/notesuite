@@ -1,13 +1,24 @@
 import * as Y from 'yjs';
+import { CollabFS, IndexItem } from '@notesuite/common/dist/index.js';
 import type { NoteListDataProvider } from './utils.js';
 
+const host = 'localhost:3000';
+
 export async function init(provider: NoteListDataProvider) {
-  const yroot = new Y.Doc();
-  const ynotes = yroot.getArray('notes');
-  ynotes.observeDeep(() => {
-    const names = ynotes.toJSON().map(a => a.name) as string[];
-    console.log(names);
-    provider.refresh(names);
+  const indexDoc = new Y.Doc();
+  const id = await fetch(`http://${host}/api/workspaces/active`)
+    .then(res => res.json() as Promise<{ id: string }>)
+    .then(res => res.id);
+
+  const client = new CollabFS({
+    endpoint: host,
+    indexId: id,
+    indexDoc,
   });
-  return { yroot, ynotes };
+
+  client.on('indexSynced', () => {
+    const items = client.index;
+    console.log(items);
+    provider.refresh(items);
+  });
 }

@@ -95,6 +95,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@notesuite/common": "workspace:*",
     "lib0": "^0.2.93",
     "y-websocket": "^2.0.2",
     "yjs": "^13.5.6"

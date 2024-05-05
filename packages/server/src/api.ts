@@ -21,6 +21,11 @@ export function registerAPI(context: AppContext) {
     res.status(201).send({ id, name, rootId });
   });
 
+  app.get('/api/workspaces/active', (req, res) => {
+    const activeWorkspaceId = db.data.activeWorkspaceId;
+    res.send({ id: activeWorkspaceId });
+  });
+
   app.put('/api/workspaces/active/:id', (req, res) => {
     const { id } = req.params;
     const workspaces = db.data.workspaces;

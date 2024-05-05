@@ -41,16 +41,19 @@ export async function activate(context: vscode.ExtensionContext) {
   await init(noteListProvider);
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('notesuite.openBlockEditor', () => {
-      const editor = vscode.window.activeTextEditor;
-      if (editor) {
-        const { document } = editor;
-        if (document.fileName.endsWith('.doc.json')) {
-          const currentText = document.getText();
-          openWebview(context, currentText);
+    vscode.commands.registerCommand(
+      'notesuite.openBlockEditor',
+      (id: string) => {
+        const editor = vscode.window.activeTextEditor;
+        if (editor) {
+          const { document } = editor;
+          if (document.fileName.endsWith('.doc.json')) {
+            const currentText = document.getText();
+            openWebview(context, currentText);
+          }
         }
       }
-    })
+    )
   );
 
   context.subscriptions.push(
@@ -118,7 +121,8 @@ export async function activate(context: vscode.ExtensionContext) {
           )
           .then(selection => {
             if (selection === 'Open Block Editor') {
-              vscode.commands.executeCommand('notesuite.openBlockEditor');
+              const id = '';
+              vscode.commands.executeCommand('notesuite.openBlockEditor', id);
             }
           });
       }

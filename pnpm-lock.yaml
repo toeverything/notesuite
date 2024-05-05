@@ -72,6 +72,9 @@ importers:
 
   packages/extension:
     dependencies:
+      '@notesuite/common':
+        specifier: workspace:*
+        version: link:../common
       lib0:
         specifier: ^0.2.93
         version: 0.2.93
