@@ -3,6 +3,9 @@ import '@blocksuite/presets/themes/affine.css';
 
 import { createEmptyDoc, AffineEditorContainer } from '@blocksuite/presets';
 import { Text } from '@blocksuite/store';
+import { initDarkMode } from './utils.js';
+
+initDarkMode();
 
 const doc = createEmptyDoc().init();
 const editor = new AffineEditorContainer();
