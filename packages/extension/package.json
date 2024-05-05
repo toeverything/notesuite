@@ -10,7 +10,23 @@
     "Other"
   ],
   "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
   "contributes": {
+    "languages": [
+      {
+        "id": "blockdoc",
+        "aliases": [
+          "BLOCK DOC",
+          "DOC JSON"
+        ],
+        "extensions": [
+          ".doc.json"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
     "viewsContainers": {
       "activitybar": [
         {
