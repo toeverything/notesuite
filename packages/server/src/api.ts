@@ -44,13 +44,16 @@ export function registerAPI(context: AppContext) {
   app.get('/api/doc/:id', async (req, res) => {
     const id = req.params.id;
     const ydoc = (await getYDoc(id)) as Y.Doc;
+    ydoc.getMap('blocks');
+
     const json = ydoc.toJSON();
     json.id = id;
-    json['//'] = 'This is a placeholder document for the file';
-    res.send(json);
+
+    res.setHeader('cache-control', 'no-store');
+    res.send(JSON.stringify(json, null, 2));
   });
 
-  app.post('/api/sync/:id', async (req, res) => {
+  app.post('/api/doc/sync/:id', async (req, res) => {
     const id = req.params.id;
     const roomDoc = (await getYDoc(id)) as Y.Doc;
     const clientUpdate = new Uint8Array(req.body);

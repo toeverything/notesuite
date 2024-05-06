@@ -111,7 +111,7 @@ export class CollabFS extends ObservableV2<CollabFSEvents> {
     const currentState = Y.encodeStateAsUpdate(doc);
 
     const { endpoint } = this.options;
-    const response = await fetch(`http://${endpoint}/api/sync/${doc.guid}`, {
+    const response = await fetch(`http://${endpoint}/api/doc/sync/${doc.guid}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/octet-stream',
