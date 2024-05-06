@@ -2,6 +2,35 @@ import * as vscode from 'vscode';
 
 type EventType = void | vscode.TreeItem | vscode.TreeItem[] | null | undefined;
 
+export class MarkdownFileSystemProvider implements vscode.FileSystemProvider {
+  onDidChangeFile: vscode.Event<vscode.FileChangeEvent[]> =
+    new vscode.EventEmitter<vscode.FileChangeEvent[]>().event;
+
+  readFile(uri: vscode.Uri): Uint8Array {
+    console.log('readFile', uri.path);
+    return new TextEncoder().encode('Hello World');
+  }
+
+  watch() {
+    return { dispose() {} };
+  }
+  stat() {
+    return {
+      type: vscode.FileType.File,
+      ctime: Date.now(),
+      mtime: Date.now(),
+      size: 1024,
+    };
+  }
+  readDirectory() {
+    return [];
+  }
+  createDirectory() {}
+  writeFile() {}
+  delete() {}
+  rename() {}
+}
+
 export class NoteListDataProvider
   implements vscode.TreeDataProvider<NoteListItem>
 {

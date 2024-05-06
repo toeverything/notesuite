@@ -1,35 +1,9 @@
 import * as vscode from 'vscode';
-import { NoteListDataProvider } from './utils';
-import { openWebview } from './webview';
-
-class MarkdownFileSystemProvider implements vscode.FileSystemProvider {
-  onDidChangeFile: vscode.Event<vscode.FileChangeEvent[]> =
-    new vscode.EventEmitter<vscode.FileChangeEvent[]>().event;
-
-  readFile(uri: vscode.Uri): Uint8Array {
-    console.log('readFile', uri.path);
-    return new TextEncoder().encode('Hello World');
-  }
-
-  watch() {
-    return { dispose() {} };
-  }
-  stat() {
-    return {
-      type: vscode.FileType.File,
-      ctime: Date.now(),
-      mtime: Date.now(),
-      size: 1024,
-    };
-  }
-  readDirectory() {
-    return [];
-  }
-  createDirectory() {}
-  writeFile() {}
-  delete() {}
-  rename() {}
-}
+import {
+  NoteListDataProvider,
+  MarkdownFileSystemProvider,
+} from './native/providers';
+import { openWebview } from './native/webview';
 
 export async function activate(context: vscode.ExtensionContext) {
   console.log('Extension "notesuite" is now active!');
@@ -37,8 +11,8 @@ export async function activate(context: vscode.ExtensionContext) {
   const noteListProvider = new NoteListDataProvider();
   vscode.window.registerTreeDataProvider('noteListView', noteListProvider);
 
-  const { init } = await import('./main.mjs');
-  await init(noteListProvider);
+  const { initClient } = await import('./client.mjs');
+  await initClient(noteListProvider);
 
   context.subscriptions.push(
     vscode.commands.registerCommand('notesuite.openBlockEditor', (id: string) =>

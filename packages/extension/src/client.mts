@@ -1,10 +1,10 @@
 import * as Y from 'yjs';
 import { CollabFS, IndexItem } from '@notesuite/common/dist/index.js';
-import type { NoteListDataProvider } from './utils.js';
+import type { NoteListDataProvider } from './native/providers.js';
 
 const host = 'localhost:3000';
 
-export async function init(provider: NoteListDataProvider) {
+export async function initClient(provider: NoteListDataProvider) {
   const indexDoc = new Y.Doc();
   const id = await fetch(`http://${host}/api/workspaces/active`)
     .then(res => res.json() as Promise<{ id: string }>)
