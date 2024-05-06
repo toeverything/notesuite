@@ -1,7 +1,8 @@
 import { v2 as webdav } from 'webdav-server';
 import * as Y from 'yjs';
 import { CollabFS, IndexItem } from '@notesuite/common/dist/index.js';
-import type { AppContext } from './utils.js';
+import type { AppContext } from '../utils.js';
+import { WebFileSystem } from './fs.js';
 
 function getWorkspace(context: AppContext) {
   const id = context.db.data.activeWorkspaceId;
@@ -62,6 +63,15 @@ export async function initWebDAVServer(context: AppContext) {
     privilegeManager,
     requireAuthentification: false,
   });
+
+  server.setFileSystemSync(
+    '/test1.html',
+    new WebFileSystem('http://localhost:3000/test.html')
+  );
+  server.setFileSystemSync(
+    '/hello/test2.html',
+    new WebFileSystem('http://localhost:3000/test.html')
+  );
 
   const { id, name } = getWorkspace(context);
   const indexDoc = new Y.Doc();
