@@ -16,32 +16,20 @@ async function wait(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function createPlaceholderDoc(id: string) {
-  const str = JSON.stringify({
-    '//': 'This is a placeholder document for the file',
-    id,
-  });
-  return Buffer.from(str);
-}
-
 function setFileList(
   server: webdav.WebDAVServer,
   workspaceName: string,
   index: IndexItem[]
 ) {
   const vfs = new webdav.VirtualFileSystem();
+  server.setFileSystemAsync(`/${workspaceName}`, vfs);
 
   for (const item of index) {
-    vfs.addSubTree(
-      server.createExternalContext(),
-      {
-        [item.name + '.doc.json']: createPlaceholderDoc(item.id),
-      },
-      () => {}
+    server.setFileSystemSync(
+      `/${workspaceName}/${item.name}.doc.json`,
+      new WebFileSystem(`http://localhost:3000/api/doc/${item.id}`)
     );
   }
-
-  server.setFileSystemAsync(`/${workspaceName}`, vfs);
 }
 
 export async function initWebDAVServer(context: AppContext) {
@@ -63,15 +51,6 @@ export async function initWebDAVServer(context: AppContext) {
     privilegeManager,
     requireAuthentification: false,
   });
-
-  server.setFileSystemSync(
-    '/test1.html',
-    new WebFileSystem('http://localhost:3000/test.html')
-  );
-  server.setFileSystemSync(
-    '/hello/test2.html',
-    new WebFileSystem('http://localhost:3000/test.html')
-  );
 
   const { id, name } = getWorkspace(context);
   const indexDoc = new Y.Doc();

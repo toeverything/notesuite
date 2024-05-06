@@ -2,6 +2,7 @@ import * as Y from 'yjs';
 // @ts-ignore
 import { getYDoc } from './third-party/y-websocket.js';
 import type { AppContext } from './utils.js';
+// import { exportSnapshot } from '@notesuite/common/dist/editor.js';
 
 export function registerAPI(context: AppContext) {
   const { express: app, db } = context;
@@ -40,9 +41,18 @@ export function registerAPI(context: AppContext) {
     res.status(200).send();
   });
 
+  app.get('/api/doc/:id', async (req, res) => {
+    const id = req.params.id;
+    const ydoc = (await getYDoc(id)) as Y.Doc;
+    const json = ydoc.toJSON();
+    json.id = id;
+    json['//'] = 'This is a placeholder document for the file';
+    res.send(json);
+  });
+
   app.post('/api/sync/:id', async (req, res) => {
     const id = req.params.id;
-    const roomDoc = await getYDoc(id);
+    const roomDoc = (await getYDoc(id)) as Y.Doc;
     const clientUpdate = new Uint8Array(req.body);
 
     const tempDoc = new Y.Doc();

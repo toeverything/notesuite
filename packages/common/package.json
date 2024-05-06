@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@blocksuite/global": "^0.13.0",
+    "@blocksuite/store": "0.14.0-canary-202403282100-70199f1",
     "lib0": "^0.2.93",
     "ws": "^8.16.0",
     "y-websocket": "^2.0.2",
