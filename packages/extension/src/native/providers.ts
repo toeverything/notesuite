@@ -139,20 +139,13 @@ export class CustomEditorProvider implements vscode.CustomEditorProvider {
     webviewPanel.webview.options = {
       enableScripts: true,
     };
-    webviewPanel.webview.html = getWebviewContent('');
-
+    webviewPanel.webview.html = getWebviewContent(document.id);
     webviewPanel.webview.onDidReceiveMessage(message => {
       switch (message.command) {
         case 'alert':
           vscode.window.showErrorMessage(message.text);
           break;
       }
-    });
-
-    const { id } = document;
-    webviewPanel.webview.postMessage({
-      command: 'update',
-      id,
     });
   }
 }
