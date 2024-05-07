@@ -6,6 +6,7 @@
   "scripts": {
     "dev:frontend": "pnpm --filter @notesuite/client dev & pnpm --filter @notesuite/common dev",
     "dev:backend": "pnpm --filter @notesuite/server start",
+    "dev:tauri": "pnpm --filter @notesuite/client tauri dev",
     "clean": "pnpm --filter @notesuite/server clean"
   },
   "devDependencies": {

@@ -3,9 +3,6 @@
   "version": "0.0.0",
   "repository": "toeverything/notesuite",
   "type": "module",
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
