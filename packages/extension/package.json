@@ -25,19 +25,6 @@
         ]
       }
     ],
-    "languages": [
-      {
-        "id": "blockdoc",
-        "aliases": [
-          "BLOCK DOC",
-          "DOC JSON"
-        ],
-        "extensions": [
-          ".doc.json"
-        ],
-        "configuration": "./language-configuration.json"
-      }
-    ],
     "viewsContainers": {
       "activitybar": [
         {
