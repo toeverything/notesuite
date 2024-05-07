@@ -36,7 +36,7 @@ window.idPromise = new Promise((resolve) => {
 });
     </script>
     <script type="module" src="http://localhost:5173/@vite/client"></script>
-    <script type="module" src="http://localhost:5173/src/extension/main.ts"></script>
+    <script type="module" src="http://localhost:5173/src/platform/vscode/index.ts"></script>
   </body>
 </html>
   `;
