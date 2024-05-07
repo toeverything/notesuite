@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import {
   NoteListDataProvider,
   MarkdownFileSystemProvider,
+  CustomEditorProvider,
 } from './native/providers';
 import { openWebview } from './native/webview';
 
@@ -17,6 +18,19 @@ export async function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand('notesuite.openBlockEditor', (id: string) =>
       openWebview(context, id)
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.window.registerCustomEditorProvider(
+      'BlockDocEditor',
+      new CustomEditorProvider(context),
+      {
+        webviewOptions: {
+          retainContextWhenHidden: true,
+        },
+        supportsMultipleEditorsPerDocument: true,
+      }
     )
   );
 

@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-function getWebviewContent(id: string) {
+export function getWebviewContent(id: string) {
   return /* html */ `
 <!doctype html>
 <html lang="en">
@@ -23,6 +23,18 @@ function getWebviewContent(id: string) {
   </head>
   <body>
     <pre id="content" style="display:none;">{"id":"${id}"}</pre>
+    <script>
+const vscode = acquireVsCodeApi();
+
+window.idPromise = new Promise((resolve) => {
+  window.addEventListener('message', event => {
+    const message = event.data;
+    if (message.command === 'update') {
+      resolve(message.id);
+    }
+  });
+});
+    </script>
     <script type="module" src="http://localhost:5173/@vite/client"></script>
     <script type="module" src="http://localhost:5173/src/extension/main.ts"></script>
   </body>

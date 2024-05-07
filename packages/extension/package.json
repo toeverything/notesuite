@@ -14,6 +14,17 @@
     "onLanguage:markdown"
   ],
   "contributes": {
+    "customEditors": [
+      {
+        "viewType": "BlockDocEditor",
+        "displayName": "Block Doc Editor",
+        "selector": [
+          {
+            "filenamePattern": "*.doc.json"
+          }
+        ]
+      }
+    ],
     "languages": [
       {
         "id": "blockdoc",
