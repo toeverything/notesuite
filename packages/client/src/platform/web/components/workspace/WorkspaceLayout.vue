@@ -39,12 +39,12 @@ import {
   initWorkspaceContext,
 } from '../../utils/editor';
 import { api } from '../../utils/api';
-import type { CollabFS } from '@notesuite/common';
+import type { YfsClient } from '@notesuite/common';
 
 export interface WorkspaceContext {
   editor: AffineEditorContainer;
   collection: DocCollection;
-  client: CollabFS;
+  client: YfsClient;
 }
 
 const workspaceId = location.pathname.split('/')[1];

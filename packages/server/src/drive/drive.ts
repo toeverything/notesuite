@@ -1,6 +1,6 @@
 import { v2 as webdav } from 'webdav-server';
 import * as Y from 'yjs';
-import { CollabFS, IndexItem } from '@notesuite/common/dist/index.js';
+import { YfsClient, IndexItem } from '@notesuite/common/dist/index.js';
 import type { AppContext } from '../utils.js';
 import { WebFileSystem } from './fs.js';
 
@@ -54,7 +54,7 @@ export async function initWebDAVServer(context: AppContext) {
 
   const { id, name } = getWorkspace(context);
   const indexDoc = new Y.Doc();
-  const client = new CollabFS({
+  const client = new YfsClient({
     endpoint: 'localhost:3000',
     indexId: id,
     indexDoc,

@@ -16,13 +16,13 @@ export interface IndexItem {
   id: string;
 }
 
-interface CollabFSEvents {
+interface YfsEvents {
   indexSynced: (id: string) => void;
 }
 
 export { WebsocketProvider } from 'y-websocket';
 
-export class CollabFS extends ObservableV2<CollabFSEvents> {
+export class YfsClient extends ObservableV2<YfsEvents> {
   private options: Options;
   private indexDoc: Y.Doc;
   private activeDoc: Y.Doc | null = null;
@@ -111,13 +111,16 @@ export class CollabFS extends ObservableV2<CollabFSEvents> {
     const currentState = Y.encodeStateAsUpdate(doc);
 
     const { endpoint } = this.options;
-    const response = await fetch(`http://${endpoint}/api/doc/sync/${doc.guid}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/octet-stream',
-      },
-      body: new Uint8Array(currentState),
-    });
+    const response = await fetch(
+      `http://${endpoint}/api/doc/sync/${doc.guid}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/octet-stream',
+        },
+        body: new Uint8Array(currentState),
+      }
+    );
 
     if (response.ok) {
       const updateForClient = new Uint8Array(await response.arrayBuffer());

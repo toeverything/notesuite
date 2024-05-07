@@ -1,5 +1,5 @@
 import * as Y from 'yjs';
-import { CollabFS, IndexItem } from '@notesuite/common/dist/index.js';
+import { YfsClient, IndexItem } from '@notesuite/common/dist/index.js';
 import type { NoteListDataProvider } from './native/providers.js';
 
 const host = 'localhost:3000';
@@ -10,7 +10,7 @@ export async function initClient(provider: NoteListDataProvider) {
     .then(res => res.json() as Promise<{ id: string }>)
     .then(res => res.id);
 
-  const client = new CollabFS({
+  const client = new YfsClient({
     endpoint: host,
     indexId: id,
     indexDoc,

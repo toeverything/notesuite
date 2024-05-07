@@ -2,7 +2,7 @@ import '@blocksuite/presets/themes/affine.css';
 import { AffineEditorContainer } from '@blocksuite/presets';
 import { DocCollection, Doc, Schema } from '@blocksuite/store';
 import { AffineSchemas } from '@blocksuite/blocks';
-import { CollabFS } from '@notesuite/common';
+import { YfsClient } from '@notesuite/common';
 
 // direct importing in vue components meets error in vscode
 export { AffineSchemas } from '@blocksuite/blocks';
@@ -14,7 +14,7 @@ export function initWorkspaceContext(id: string) {
   const collection = new DocCollection({ id, schema });
   const editor = new AffineEditorContainer();
 
-  const client = new CollabFS({
+  const client = new YfsClient({
     endpoint: 'localhost:3000',
     indexId: id,
     indexDoc: collection.doc,
