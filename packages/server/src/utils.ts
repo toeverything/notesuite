@@ -44,6 +44,8 @@ async function initDB() {
     workspaces: { id: string; rootId: string; name: string }[];
   } = { workspaces: [] };
   const db = await JSONFilePreset('./db.json', defaultData);
+  await db.read();
+  await db.write();
   return db;
 }
 
