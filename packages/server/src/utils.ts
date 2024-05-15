@@ -15,6 +15,7 @@ import * as Y from 'yjs';
 const docs = serverDocs as Map<string, Y.Doc>;
 
 export interface AppContext {
+  port: number;
   express: express.Express;
   httpServer: http.Server;
   docs: Map<string, Y.Doc>;
@@ -30,11 +31,11 @@ export async function initAppContext(): Promise<AppContext> {
 
   const port = parseInt(process.env.PORT || '3000');
   const httpServer = app.listen(port, () =>
-    console.log(`Server started on http://localhost:${port}`)
+    console.log(`HTTP server started on localhost:${port}`)
   );
 
   const db = await initDB();
-  return { express: app, httpServer, db, docs };
+  return { port, express: app, httpServer, db, docs };
 }
 
 async function initDB() {

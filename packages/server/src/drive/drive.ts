@@ -54,16 +54,16 @@ export async function initWebDAVServer(context: AppContext) {
 
   const { id, name } = getWorkspace(context);
   const indexDoc = new Y.Doc();
+  const endpoint = `localhost:${context.port}`;
+
   const client = new YfsClient({
-    endpoint: 'localhost:3000',
+    endpoint,
     indexId: id,
     indexDoc,
   });
 
   client.on('indexSynced', () => {
     setFileList(server, name, client.index);
-    server.start(() => {
-      console.log('WebDAV server started on http://localhost:1900');
-    });
+    server.start(() => console.log(`WebDAV server started on ${endpoint}`));
   });
 }
