@@ -70,5 +70,8 @@ export function initWSServer(context: AppContext) {
     console.log('doc count', [...docs.keys()].length);
   });
 
-  getYDoc(context.db.data.activeWorkspaceId);
+  const { activeWorkspaceId } = context.db.data;
+  if (activeWorkspaceId) {
+    getYDoc(activeWorkspaceId);
+  }
 }

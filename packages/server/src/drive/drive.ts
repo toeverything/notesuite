@@ -5,8 +5,7 @@ import type { AppContext } from '../utils.js';
 import { WebFileSystem } from './fs.js';
 
 function getWorkspace(context: AppContext) {
-  const id = context.db.data.activeWorkspaceId;
-  if (!id) throw new Error('Active workspace not found');
+  const id = context.db.data.activeWorkspaceId ?? '';
   const name =
     context.db.data.workspaces.find(w => w.id === id)?.name || 'untitled';
   return { id, name };
@@ -53,6 +52,11 @@ export async function initWebDAVServer(context: AppContext) {
   });
 
   const { id, name } = getWorkspace(context);
+  if (!id) {
+    console.log('No active workspace, WebDAV server not started');
+    return;
+  }
+
   const indexDoc = new Y.Doc();
   const endpoint = `localhost:${context.port}`;
 
