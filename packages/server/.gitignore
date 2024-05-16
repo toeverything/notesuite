@@ -1,2 +1,2 @@
 .db
-db.json
+db*.json
