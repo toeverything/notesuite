@@ -15,7 +15,7 @@ export function initWorkspaceContext(id: string) {
   const editor = new AffineEditorContainer();
 
   const client = new YfsClient({
-    endpoint: 'localhost:3000',
+    endpoint: process.env.BACKEND_URL as string,
     indexId: id,
     indexDoc: collection.doc,
   });

@@ -1,4 +1,4 @@
-const endpoint = 'http://localhost:3000';
+const endpoint = `http://${process.env.BACKEND_URL}`;
 
 namespace API {
   export interface Workspace {

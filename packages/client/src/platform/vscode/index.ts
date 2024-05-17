@@ -13,7 +13,8 @@ const editor = new AffineEditorContainer();
 editor.doc = doc;
 document.body.append(editor);
 
-const provider = new WebsocketProvider('ws://localhost:3000', id, doc.spaceDoc);
+const url = `ws://${process.env.BACKEND_URL}`;
+const provider = new WebsocketProvider(url, id, doc.spaceDoc);
 provider.on('sync', () => doc.load());
 // @ts-ignore
 window.provider = provider;

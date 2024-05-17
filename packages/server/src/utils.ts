@@ -29,7 +29,7 @@ export async function initAppContext(): Promise<AppContext> {
   app.use(bodyParser.raw({ type: 'application/octet-stream' }));
   app.use(express.json());
 
-  const port = parseInt(process.env.PORT || '3000');
+  const port = parseInt(process.env.PORT || '3000', 10);
   const httpServer = app.listen(port, () =>
     console.log(`HTTP server started on localhost:${port}`)
   );
