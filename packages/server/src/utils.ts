@@ -12,6 +12,7 @@ import {
 } from './third-party/y-websocket.js';
 import * as Y from 'yjs';
 
+const instanceName = process.env.INSTANCE_NAME || '';
 const docs = serverDocs as Map<string, Y.Doc>;
 
 export interface AppContext {
@@ -43,7 +44,7 @@ async function initDB() {
     activeWorkspaceId?: string;
     workspaces: { id: string; rootId: string; name: string }[];
   } = { workspaces: [] };
-  const db = await JSONFilePreset('./db.json', defaultData);
+  const db = await JSONFilePreset(`./.db${instanceName}/db.json`, defaultData);
   await db.read();
   await db.write();
   return db;

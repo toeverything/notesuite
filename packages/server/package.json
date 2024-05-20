@@ -4,8 +4,8 @@
   "repository": "toeverything/notesuite",
   "type": "module",
   "scripts": {
-    "start": "NODE_OPTIONS=--import=./register.js YPERSISTENCE=./.db node src/index.ts",
-    "clean": "rm -rf ./.db db*.json"
+    "start": "NODE_OPTIONS=--import=./register.js node src/index.ts",
+    "clean": "rm -rf ./.db*"
   },
   "dependencies": {
     "@notesuite/common": "workspace:*",

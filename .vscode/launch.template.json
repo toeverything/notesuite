@@ -8,7 +8,8 @@
       "skipFiles": ["<node_internals>/**"],
       "env": {
         "NODE_OPTIONS": "--import=./register.js",
-        "YPERSISTENCE": "./.db"
+        "INSTANCE_NAME": "",
+        "PORT": "3000"
       },
       "program": "${workspaceFolder}/packages/server/src/index.ts",
       "cwd": "${workspaceFolder}/packages/server"
