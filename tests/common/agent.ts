@@ -58,6 +58,10 @@ class WebAgentInterface {
   }
 }
 
+class DesktopAgentInterface {
+  constructor(private agent: TestAgent) {}
+}
+
 class MockAgentInterface {
   constructor(private agent: TestAgent) {}
 }
@@ -65,6 +69,7 @@ class MockAgentInterface {
 export class TestAgent {
   runner = new AppRunner();
   web = new WebAgentInterface(this);
+  desktop = new DesktopAgentInterface(this);
   mock = new MockAgentInterface(this);
 
   workspaceId = '';

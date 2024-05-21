@@ -9,7 +9,9 @@
     "dev:web": "pnpm --filter @notesuite/client dev & pnpm --filter @notesuite/common dev",
     "dev:server": "pnpm --filter @notesuite/server start",
     "dev:client": "pnpm --filter @notesuite/client tauri dev & pnpm --filter @notesuite/common dev",
+    "demo": "playwright test --debug --config=playwright.demo.config.ts",
     "test": "playwright test",
+    "shutdown": "./scripts/shutdown.sh",
     "test:headed": "playwright test --debug",
     "clean": "pnpm --filter @notesuite/server clean"
   },
