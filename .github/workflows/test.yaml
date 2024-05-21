@@ -28,5 +28,25 @@ jobs:
       - name: Install playwright browsers
         run: npx playwright install chromium
 
+      - name: Build common package
+        run: pnpm --filter @notesuite/common build
+
+      - name: Start server
+        run: |
+          pnpm dev:server > server.log 2>&1 &
+          SERVER_PID=$!
+          pnpm dev:web > web.log 2>&1 &
+          WEB_PID=$!
+      - name: Wait for services
+        run: sleep 2
+
       - name: Run E2E test
         run: pnpm test
+
+      - name: Display server log
+        if: failure()
+        run: cat server.log
+
+      - name: Display web log
+        if: failure()
+        run: cat web.log
