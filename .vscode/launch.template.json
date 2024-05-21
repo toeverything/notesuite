@@ -7,7 +7,7 @@
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
       "env": {
-        "NODE_OPTIONS": "--import=./register.js",
+        "NODE_OPTIONS": "--import=../../scripts/register.js",
         "INSTANCE_NAME": "",
         "PORT": "3000"
       },

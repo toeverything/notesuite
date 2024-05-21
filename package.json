@@ -5,7 +5,7 @@
   "private": true,
   "author": "toeverything",
   "scripts": {
-    "dev": "node scripts/start.js",
+    "dev": "NODE_OPTIONS=--import=./scripts/register.js node ./scripts/start.ts",
     "dev:web": "pnpm --filter @notesuite/client dev & pnpm --filter @notesuite/common dev",
     "dev:server": "pnpm --filter @notesuite/server start",
     "dev:client": "pnpm --filter @notesuite/client tauri dev & pnpm --filter @notesuite/common dev",
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "playwright": "^1.44.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.3",
     "vite": "^5.2.6"
   }

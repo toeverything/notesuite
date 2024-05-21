@@ -11,6 +11,9 @@ importers:
       playwright:
         specifier: ^1.44.0
         version: 1.44.0
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@18.19.26)(typescript@5.4.3)
       typescript:
         specifier: ^5.4.3
         version: 5.4.3
