@@ -11,19 +11,22 @@ export class AppRunner {
   }
 
   /**
-   * @param {number} port - The port on which to start the server.
+   * @param {number} port
+   * @param {string} instanceName
    * @returns {Promise<void>}
    */
-  async startServer(port) {
+  async startServer(port, instanceName = '') {
     return new Promise((resolve, reject) => {
-      this.serverProcess = spawn(
-        'pnpm',
-        ['--filter', '@notesuite/server', 'start'],
-        {
-          env: { ...process.env, PORT: port.toString() },
-          stdio: 'inherit',
-        }
-      );
+      this.serverProcess = spawn('node', ['src/index.ts'], {
+        env: {
+          ...process.env,
+          INSTANCE_NAME: instanceName,
+          PORT: port.toString(),
+          NODE_OPTIONS: '--import=./register.js',
+        },
+        cwd: 'packages/server',
+        stdio: 'inherit',
+      });
 
       this.serverProcess.on('error', err => reject(err));
       this.serverProcess.on('close', code => {
@@ -37,22 +40,21 @@ export class AppRunner {
   }
 
   /**
-   * Start the web server.
-   * @param {number} webPort - The port on which to start the web server.
-   * @param {number} backendPort - The backend server port.
+   * @param {number} webPort
+   * @param {number} backendPort
    * @returns {Promise<void>}
    */
   async startWeb(webPort, backendPort) {
     return new Promise((resolve, reject) => {
-      this.webProcess = spawn('pnpm', ['dev:web'], {
+      this.webProcess = spawn('node_modules/.bin/vite', [], {
         env: {
-          ...process.env,
           VITE_PORT: webPort.toString(),
           BACKEND_URL: `localhost:${backendPort}`,
+          ...process.env,
         },
+        cwd: 'packages/client',
         stdio: 'inherit',
       });
-
       this.webProcess.on('error', err => reject(err));
       this.webProcess.on('close', code => {
         if (code !== 0) {
@@ -82,12 +84,18 @@ export class AppRunner {
     rl.on('line', () => {});
   }
 
-  stop() {
-    if (this.serverProcess) {
-      this.serverProcess.kill();
-    }
-    if (this.webProcess) {
-      this.webProcess.kill();
-    }
+  async stop() {
+    await Promise.all([
+      this._terminateProcess(this.serverProcess, 'server'),
+      this._terminateProcess(this.webProcess, 'web'),
+    ]);
+  }
+
+  _terminateProcess(process, name) {
+    return new Promise((resolve, reject) => {
+      process.on('close', () => resolve());
+      process.on('error', () => reject());
+      process.kill('SIGINT');
+    });
   }
 }

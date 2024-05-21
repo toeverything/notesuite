@@ -15,6 +15,14 @@
       "cwd": "${workspaceFolder}/packages/server"
     },
     {
+      "name": "Quick Start",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/scripts/start.js",
+      "cwd": "${workspaceFolder}"
+    },
+    {
       "name": "Extension",
       "type": "extensionHost",
       "request": "launch",
