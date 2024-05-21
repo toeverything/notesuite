@@ -53,9 +53,3 @@ jobs:
       - name: Display web log
         if: failure()
         run: cat web.log
-
-      - name: Cleanup
-        if: always()
-        run: |
-          kill $SERVER_PID
-          kill $WEB_PID
