@@ -81,6 +81,8 @@ export class TestAgent {
 
   async start(options: StartOptions) {
     this.options = options;
+    if (process.env.CI) return;
+
     await this.runner.clean();
     await Promise.all([
       this.runner.startServer(options.backendPort, options.name),
@@ -89,6 +91,7 @@ export class TestAgent {
   }
 
   async stop() {
+    if (process.env.CI) return;
     await this.runner.stop();
   }
 

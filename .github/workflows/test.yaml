@@ -28,5 +28,23 @@ jobs:
       - name: Install playwright browsers
         run: npx playwright install chromium
 
+      - name: Start server
+        run: |
+          pnpm dev:server &
+          SERVER_PID=$!
+          pnpm dev:web &
+          WEB_PID=$!
+          echo "Server PID: $SERVER_PID"
+          echo "Web PID: $WEB_PID"
+
+      - name: Wait for services
+        run: sleep 2
+
       - name: Run E2E test
         run: pnpm test
+
+      - name: Cleanup
+        if: always()
+        run: |
+          kill $SERVER_PID
+          kill $WEB_PID
