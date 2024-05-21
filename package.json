@@ -1,9 +1,11 @@
 {
   "name": "notesuite",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
   "author": "toeverything",
   "scripts": {
+    "dev": "node scripts/start.js",
     "dev:web": "pnpm --filter @notesuite/client dev & pnpm --filter @notesuite/common dev",
     "dev:server": "pnpm --filter @notesuite/server start",
     "dev:client": "pnpm --filter @notesuite/client tauri dev & pnpm --filter @notesuite/common dev",
