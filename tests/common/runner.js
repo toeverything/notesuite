@@ -3,9 +3,7 @@ import { spawn } from 'child_process';
 import readline from 'readline';
 
 export class AppRunner {
-  /** @param {string} name */
-  constructor(name = '') {
-    this.environment = name;
+  constructor() {
     this.serverProcess = null;
     this.webProcess = null;
   }
@@ -94,10 +92,12 @@ export class AppRunner {
   }
 
   _terminateProcess(process, name) {
-    return new Promise((resolve, reject) => {
-      process.on('close', () => resolve());
-      process.on('error', () => reject());
-      process.kill('SIGINT');
-    });
+    return /** @type {Promise<void>} */ (
+      new Promise((resolve, reject) => {
+        process.on('close', () => resolve());
+        process.on('error', () => reject());
+        process.kill('SIGINT');
+      })
+    );
   }
 }
