@@ -25,7 +25,7 @@ const wsReadyStateClosed = 3 // eslint-disable-line
 
 // disable gc when using snapshots!
 const gcEnabled = process.env.GC !== 'false' && process.env.GC !== '0'
-const persistenceDir = `./.db${process.env.INSTANCE_NAME || ''}`
+const persistenceDir = `./.db-${process.env.INSTANCE_NAME || 'default'}`
 /**
  * @type {{bindState: function(string,WSSharedDoc):void, writeState:function(string,WSSharedDoc):Promise<any>, provider: any}|null}
  */
