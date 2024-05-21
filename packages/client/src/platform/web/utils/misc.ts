@@ -4,7 +4,7 @@ class DelayedAction {
     this.timeout = null;
   }
 
-  set(action: Function, delay = 1000) {
+  set(action: Function, delay = 800) {
     this.clear();
     this.timeout = setTimeout(action, delay);
   }

@@ -10,36 +10,29 @@ test.describe('basic test', () => {
   };
   test.beforeAll(() => agent.start(options));
 
-  test('local server works', async ({ page }) => {
-    await page.goto(agent.web.baseUrl);
-    expect(await page.title()).toBe('Note App');
-  });
-
   test('can create workspace', async ({ page }) => {
     await page.goto(agent.web.baseUrl);
-    await page.getByPlaceholder('Workspace name').click();
-    await page.getByPlaceholder('Workspace name').fill('hello');
-    await page.getByRole('button', { name: 'Create' }).click();
-    await expect(page.getByText('Test Client')).toBeVisible();
+    expect(await page.title()).toBe('Note App');
 
-    const currentUrl = page.url();
-    const parts = currentUrl.split('/');
-    const id = parts[parts.length - 1];
-    expect(id).not.toBe('');
-    agent.setWorkspaceId(id);
+    await agent.web.createWorkspace(page, 'hello');
+    await expect(page.getByText('Test Client')).toBeVisible();
   });
 
   test('can create doc', async ({ page }) => {
     await page.goto(agent.web.workspaceUrl);
-    await page.getByRole('button', { name: 'Create' }).hover();
-    await page.getByText('Block Document').click();
-    const title = page.locator('doc-title v-line div');
-    await title.click();
-    await title.fill('First Doc');
-    await page.keyboard.press('Enter');
+    await agent.web.createDoc(page, 'First Doc');
+    await agent.web.createDoc(page, 'Second Doc');
+    await agent.web.createDoc(page, 'Third Doc');
 
-    const elements = await page.$$('.n-menu-item-content');
-    expect(elements.length).toBe(1);
+    await agent.web.asserts.docCount(page, 3);
+  });
+
+  test('can auto save doc', async ({ page }) => {
+    await page.goto(agent.web.workspaceUrl);
+    await agent.web.asserts.docCount(page, 3);
+
+    await agent.web.selectDoc(page, 'First Doc');
+    await expect(page.getByText('Hello world!')).toBeVisible();
   });
 
   test.afterAll(() => agent.stop());
