@@ -19,7 +19,7 @@
       "type": "node",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/scripts/start.js",
+      "program": "${workspaceFolder}/scripts/quick-start.js",
       "cwd": "${workspaceFolder}"
     },
     {
