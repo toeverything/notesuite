@@ -7,11 +7,13 @@
     "dev:web": "pnpm --filter @notesuite/client dev & pnpm --filter @notesuite/common dev",
     "dev:server": "pnpm --filter @notesuite/server start",
     "dev:client": "pnpm --filter @notesuite/client tauri dev & pnpm --filter @notesuite/common dev",
+    "test": "playwright test",
     "test:frontend1": "VITE_PORT=5174 BACKEND_URL=localhost:3001 pnpm dev:web",
     "test:frontend2": "VITE_PORT=5175 BACKEND_URL=localhost:3002 pnpm dev:web",
     "clean": "pnpm --filter @notesuite/server clean"
   },
   "devDependencies": {
+    "playwright": "^1.44.0",
     "typescript": "^5.4.3",
     "vite": "^5.2.6"
   }
