@@ -32,6 +32,7 @@ export class TestAgent {
 
   async start(options: StartOptions) {
     this.options = options;
+    await this.runner.clean();
     await Promise.all([
       this.runner.startServer(options.backendPort, options.name),
       this.runner.startWeb(options.webPort, options.backendPort),

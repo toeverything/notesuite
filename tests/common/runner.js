@@ -8,6 +8,24 @@ export class AppRunner {
     this.webProcess = null;
   }
 
+  async clean() {
+    await /** @type {Promise<void>} */ (
+      new Promise((resolve, reject) => {
+        const process = spawn('pnpm', ['clean'], {
+          stdio: 'inherit',
+        });
+
+        process.on('error', err => reject(err));
+        process.on('close', code => {
+          if (code !== 0) {
+            reject(new Error(`Clean process exited with code ${code}`));
+          }
+          resolve();
+        });
+      })
+    );
+  }
+
   /**
    * @param {number} port
    * @param {string} instanceName

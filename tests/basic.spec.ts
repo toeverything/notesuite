@@ -8,6 +8,7 @@ test.describe('basic test', () => {
     webPort: 5173,
     backendPort: 3000,
   };
+  let workspaceId = '';
   test.beforeAll(() => agent.start(options));
 
   test('local server works', async ({ page }) => {
@@ -21,6 +22,12 @@ test.describe('basic test', () => {
     await page.getByPlaceholder('Workspace name').fill('hello');
     await page.getByRole('button', { name: 'Create' }).click();
     await expect(page.getByText('Test Client')).toBeVisible();
+
+    const currentUrl = page.url();
+    const parts = currentUrl.split('/');
+    const id = parts[parts.length - 1];
+    expect(id).not.toBe('');
+    workspaceId = id;
   });
 
   test.afterAll(() => agent.stop());

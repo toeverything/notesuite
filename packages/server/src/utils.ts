@@ -68,7 +68,7 @@ export function initWSServer(context: AppContext) {
 
   wss.on('connection', (ws, request) => {
     setupWSConnection(ws, request, { gc: true });
-    console.log('doc count', [...docs.keys()].length);
+    // console.log('doc count', [...docs.keys()].length);
   });
 
   const { activeWorkspaceId } = context.db.data;
