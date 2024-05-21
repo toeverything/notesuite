@@ -1,15 +1,16 @@
 import { expect, test } from 'playwright/test';
-// @ts-ignore
-import { AppRunner } from './runner/runner.js';
+import { TestAgent } from './common/agent.js';
 
 test.describe('basic test', () => {
-  const runner = new AppRunner();
-  test.beforeAll(async () => {
-    await Promise.all([
-      runner.startServer(3000, 'test-basic'),
-      runner.startWeb(5173, 3000),
-    ]);
-  });
+  const agent = new TestAgent();
+
+  test.beforeAll(() =>
+    agent.start({
+      name: 'test-basic',
+      webPort: 5173,
+      backendPort: 3000,
+    })
+  );
 
   test('local server works', async ({ page }) => {
     await page.goto('http://localhost:5173');
@@ -17,5 +18,5 @@ test.describe('basic test', () => {
     expect(title).toBe('Note App');
   });
 
-  test.afterAll(async () => await runner.stop());
+  test.afterAll(async () => await agent.stop());
 });
