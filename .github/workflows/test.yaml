@@ -34,7 +34,9 @@ jobs:
       - name: Start server
         run: |
           pnpm dev:server > server.log 2>&1 &
-          pnpm dev:web > web.log 2>&1
+          SERVER_PID=$!
+          pnpm dev:web > web.log 2>&1 &
+          WEB_PID=$!
       - name: Wait for services
         run: sleep 2
 
