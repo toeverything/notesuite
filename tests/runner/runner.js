@@ -85,6 +85,8 @@ export class AppRunner {
   }
 
   async stop() {
+    if (process.env.CI) return;
+
     await Promise.all([
       this._terminateProcess(this.serverProcess, 'server'),
       this._terminateProcess(this.webProcess, 'web'),

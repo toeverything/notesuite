@@ -17,5 +17,5 @@ test.describe('basic test', () => {
     expect(title).toBe('Note App');
   });
 
-  // test.afterAll(async () => await runner.stop());
+  test.afterAll(async () => await runner.stop());
 });
