@@ -8,7 +8,6 @@ test.describe('basic test', () => {
     webPort: 5173,
     backendPort: 3000,
   };
-  let workspaceId = '';
   test.beforeAll(() => agent.start(options));
 
   test('local server works', async ({ page }) => {
@@ -16,7 +15,7 @@ test.describe('basic test', () => {
     expect(await page.title()).toBe('Note App');
   });
 
-  test('can crete workspace', async ({ page }) => {
+  test('can create workspace', async ({ page }) => {
     await page.goto(agent.web.baseUrl);
     await page.getByPlaceholder('Workspace name').click();
     await page.getByPlaceholder('Workspace name').fill('hello');
@@ -27,7 +26,20 @@ test.describe('basic test', () => {
     const parts = currentUrl.split('/');
     const id = parts[parts.length - 1];
     expect(id).not.toBe('');
-    workspaceId = id;
+    agent.setWorkspaceId(id);
+  });
+
+  test('can create doc', async ({ page }) => {
+    await page.goto(agent.web.workspaceUrl);
+    await page.getByRole('button', { name: 'Create' }).hover();
+    await page.getByText('Block Document').click();
+    const title = page.locator('doc-title v-line div');
+    await title.click();
+    await title.fill('First Doc');
+    await page.keyboard.press('Enter');
+
+    const elements = await page.$$('.n-menu-item-content');
+    expect(elements.length).toBe(1);
   });
 
   test.afterAll(() => agent.stop());

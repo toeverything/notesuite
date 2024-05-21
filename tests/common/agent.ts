@@ -13,6 +13,10 @@ class WebAgentInterface {
   get baseUrl() {
     return `http://localhost:${this.agent.options.webPort}`;
   }
+
+  get workspaceUrl() {
+    return `${this.baseUrl}/${this.agent.workspaceId}`;
+  }
 }
 
 class MockAgentInterface {
@@ -24,6 +28,7 @@ export class TestAgent {
   web = new WebAgentInterface(this);
   mock = new MockAgentInterface(this);
 
+  workspaceId = '';
   options = {
     name: '',
     webPort: 0,
@@ -41,5 +46,9 @@ export class TestAgent {
 
   async stop() {
     await this.runner.stop();
+  }
+
+  setWorkspaceId(id: string) {
+    this.workspaceId = id;
   }
 }
