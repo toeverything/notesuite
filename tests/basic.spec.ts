@@ -13,10 +13,9 @@ test.describe('basic test', () => {
 
   test('local server works', async ({ page }) => {
     await page.goto('http://localhost:5173');
-
     const title = await page.title();
     expect(title).toBe('Note App');
   });
 
-  test.afterAll(async () => await runner.stop());
+  // test.afterAll(async () => await runner.stop());
 });
