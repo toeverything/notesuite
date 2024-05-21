@@ -2,6 +2,8 @@ import { registerAPI } from './api.js';
 import { initWebDAVServer } from './drive/drive.js';
 import { initAppContext, initWSServer } from './utils.js';
 
+console.log(111);
+
 const context = await initAppContext();
 
 console.log('Server...', context.port);

@@ -30,9 +30,9 @@ jobs:
 
       - name: Start server
         run: |
-          pnpm dev:server &
+          pnpm dev:server > server.log 2>&1 &
           SERVER_PID=$!
-          pnpm dev:web &
+          pnpm dev:web > web.log 2>&1 &
           WEB_PID=$!
           echo "Server PID: $SERVER_PID"
           echo "Web PID: $WEB_PID"
@@ -42,6 +42,14 @@ jobs:
 
       - name: Run E2E test
         run: pnpm test
+
+      - name: Display server log
+        if: failure()
+        run: cat server.log
+
+      - name: Display web log
+        if: failure()
+        run: cat web.log
 
       - name: Cleanup
         if: always()
