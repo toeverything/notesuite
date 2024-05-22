@@ -9,12 +9,12 @@ test('demo', async ({ page }) => {
     backendPort: 3000,
   });
   await page.goto(agent.web.baseUrl);
-  // await page.pause();
+  await page.pause();
 
   await agent.web.createWorkspace(page, 'hello');
   await agent.web.createDoc(page, 'First Doc');
   await agent.web.createDoc(page, 'Second Doc');
   await agent.web.createDoc(page, 'Third Doc');
-  // await page.pause();
-  // await agent.stop();
+  await page.pause();
+  await agent.stop();
 });
