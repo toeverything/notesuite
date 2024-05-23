@@ -4,7 +4,7 @@ import { TestAgent } from './agent.js';
 test('demo', async ({ page }) => {
   const agent = new TestAgent();
   await agent.start({
-    name: 'demo',
+    name: 'default',
     webPort: 5173,
     backendPort: 3000,
   });
@@ -16,5 +16,5 @@ test('demo', async ({ page }) => {
   await agent.web.createDoc(page, 'Second Doc');
   await agent.web.createDoc(page, 'Third Doc');
   // await page.pause();
-  // await agent.stop();
+  await agent.stop();
 });

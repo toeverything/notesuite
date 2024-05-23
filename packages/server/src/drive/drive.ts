@@ -68,6 +68,6 @@ export async function initWebDAVServer(context: AppContext) {
 
   client.on('indexSynced', () => {
     setFileList(server, name, client.index);
-    server.start(() => console.log(`WebDAV server started on ${endpoint}`));
+    server.start(() => console.log(`WebDAV server started on 1900`));
   });
 }
