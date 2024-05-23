@@ -125,8 +125,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       '@y/stream':
-        specifier: https://github.com/doodlewind/ystream/releases/download/0.0.1-240522/y-stream-0.0.1-2.tgz
-        version: https://github.com/doodlewind/ystream/releases/download/0.0.1-240522/y-stream-0.0.1-2.tgz
+        specifier: https://github.com/doodlewind/ystream/releases/download/0.0.0-240523/y-stream-0.0.0.tgz
+        version: https://github.com/doodlewind/ystream/releases/download/0.0.0-240523/y-stream-0.0.0.tgz
       body-parser:
         specifier: ^1.20.2
         version: 1.20.2
@@ -1139,9 +1139,9 @@ packages:
     resolution: {integrity: sha512-FNoYzHawTMk/6KMQoEG5O4PuioX19UbwdQKF44yw0nLfOypfQdjtfZzo/UIJWAJ23sNIFbD1Ug9lbaDGMwbqQA==}
     engines: {node: '>=8'}
 
-  '@y/stream@https://github.com/doodlewind/ystream/releases/download/0.0.1-240522/y-stream-0.0.1-2.tgz':
-    resolution: {tarball: https://github.com/doodlewind/ystream/releases/download/0.0.1-240522/y-stream-0.0.1-2.tgz}
-    version: 0.0.1
+  '@y/stream@https://github.com/doodlewind/ystream/releases/download/0.0.0-240523/y-stream-0.0.0.tgz':
+    resolution: {tarball: https://github.com/doodlewind/ystream/releases/download/0.0.0-240523/y-stream-0.0.0.tgz}
+    version: 0.0.0
     engines: {node: '>=20'}
     hasBin: true
 
@@ -4207,7 +4207,7 @@ snapshots:
     dependencies:
       tslib: 2.6.2
 
-  '@y/stream@https://github.com/doodlewind/ystream/releases/download/0.0.1-240522/y-stream-0.0.1-2.tgz':
+  '@y/stream@https://github.com/doodlewind/ystream/releases/download/0.0.0-240523/y-stream-0.0.0.tgz':
     dependencies:
       isodb: 0.1.12
       lib0: 0.2.93

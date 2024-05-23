@@ -1,7 +1,7 @@
 import * as Ystream from '@y/stream';
-import * as wscomm from '@y/stream/comms/ws';
+import * as wscomm from '@y/stream/comms/websocket';
 import * as authentication from '@y/stream/api/authentication';
-import { createWSServer } from '@y/stream/comms/ws-server';
+import { createWSServer } from '@y/stream/comms/websocket-server';
 import {
   collectionDef,
   testServerIdentity,
