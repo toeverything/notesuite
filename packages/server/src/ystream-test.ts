@@ -16,7 +16,7 @@ const server = await createWSServer({
   identity: testServerIdentity,
 });
 
-const comm = new wscomm.WebSocketComm('ws://localhost:9000', [collectionDef]);
+const comm = new wscomm.WebSocketComm('ws://localhost:9000', collectionDef);
 // await Ystream.remove(dbname);
 const ystream = await Ystream.open(dbname, {
   comms: [comm],
@@ -31,8 +31,8 @@ await authentication.setUserIdentity(
   testUser.privateKey
 );
 
-console.log(ystream.getCollection);
-// const collection = ystream.getCollection(collectionDef.collection);
-// const ydoc1 = collection.getYdoc('ydoc');
-// await ydoc1.whenLoaded;
+const { owner, name } = collectionDef;
+const collection = ystream.getCollection(owner, name);
+const ydoc1 = collection.getYdoc('ydoc');
+await ydoc1.whenLoaded;
 // console.log(ydoc1);
