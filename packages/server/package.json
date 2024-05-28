@@ -4,9 +4,8 @@
   "repository": "toeverything/notesuite",
   "type": "module",
   "scripts": {
-    "start:ystream": "NODE_OPTIONS=--import=./register.js node src/ystream-test.ts",
     "start": "NODE_OPTIONS=--import=./register.js node src/index.ts",
-    "clean": "rm -rf ./.db*"
+    "clean": "rm -rf ./.db* db*.json"
   },
   "dependencies": {
     "@notesuite/common": "workspace:*",
@@ -21,7 +20,6 @@
     "ts-node": "^10.9.2",
     "webdav-server": "^2.6.2",
     "ws": "^8.16.0",
-    "y-leveldb": "^0.1.2",
     "y-protocols": "^1.0.6",
     "y-websocket": "^2.0.2",
     "yjs": "^13.5.6"

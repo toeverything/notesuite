@@ -7,6 +7,7 @@ import * as encoding from 'lib0/encoding'
 import * as decoding from 'lib0/decoding'
 import * as map from 'lib0/map'
 import * as lodash from 'lodash'
+import { getYDoc as getYstreamDoc } from '../ystream/adaptor.js'
 
 const { debounce } = lodash
 
@@ -25,44 +26,8 @@ const wsReadyStateClosed = 3 // eslint-disable-line
 
 // disable gc when using snapshots!
 const gcEnabled = process.env.GC !== 'false' && process.env.GC !== '0'
-const persistenceDir = `./.db-${process.env.INSTANCE_NAME || 'default'}`
-/**
- * @type {{bindState: function(string,WSSharedDoc):void, writeState:function(string,WSSharedDoc):Promise<any>, provider: any}|null}
- */
+
 let persistence = null
-if (typeof persistenceDir === 'string') {
-  console.info('Persisting documents to "' + persistenceDir + '"')
-  // @ts-ignore
-  const { LeveldbPersistence } = await import('y-leveldb')
-  const ldb = new LeveldbPersistence(persistenceDir)
-  persistence = {
-    provider: ldb,
-    bindState: async (docName, ydoc) => {
-      const persistedYdoc = await ldb.getYDoc(docName)
-      const newUpdates = Y.encodeStateAsUpdate(ydoc)
-      ldb.storeUpdate(docName, newUpdates)
-      Y.applyUpdate(ydoc, Y.encodeStateAsUpdate(persistedYdoc))
-      ydoc.on('update', update => {
-        ldb.storeUpdate(docName, update)
-      })
-    },
-    writeState: async (_docName, _ydoc) => {}
-  }
-}
-
-/**
- * @param {{bindState: function(string,WSSharedDoc):void,
- * writeState:function(string,WSSharedDoc):Promise<any>,provider:any}|null} persistence_
- */
-export const setPersistence = persistence_ => {
-  persistence = persistence_
-}
-
-/**
- * @return {null|{bindState: function(string,WSSharedDoc):void,
-  * writeState:function(string,WSSharedDoc):Promise<any>}|null} used persistence layer
-  */
-export const getPersistence = () => persistence
 
 /**
  * @type {Map<string,WSSharedDoc>}
@@ -167,10 +132,11 @@ export const getYDoc = async (docname, gc = true) => {
   if (!doc) {
     doc = new WSSharedDoc(docname)
     doc.gc = gc
-    if (persistence !== null) {
-      await persistence.bindState(docname, doc)
-    }
     docs.set(docname, doc)
+
+    const peerDoc = await getYstreamDoc(docname)
+    peerDoc.on('update', update => Y.applyUpdate(doc, update))    
+    doc.on('update', update => Y.applyUpdate(peerDoc, update))
   }
   return doc;
 }

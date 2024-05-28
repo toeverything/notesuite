@@ -6,20 +6,20 @@ import {
   collectionDef,
   testServerIdentity,
   testUser,
-} from './ystream/utils.js';
+} from './auth.js';
 
-const dbname = './.db-ystream/test';
+const dbname = `./.db-ystream-${process.env.INSTANCE_NAME}`;
 
-const server = await createWSServer({
+const remoteServer = await createWSServer({
   port: 9000,
   dbname,
   identity: testServerIdentity,
 });
 
-const comm = new wscomm.WebSocketComm('ws://localhost:9000', collectionDef);
+// const comm = new wscomm.WebSocketComm('ws://localhost:9000', collectionDef);
 // await Ystream.remove(dbname);
 const ystream = await Ystream.open(dbname, {
-  comms: [comm],
+  // comms: [comm],
 });
 await authentication.registerUser(ystream, testServerIdentity.user, {
   isTrusted: true,
@@ -32,7 +32,11 @@ await authentication.setUserIdentity(
 );
 
 const { owner, name } = collectionDef;
-const collection = ystream.getCollection(owner, name);
-const ydoc1 = collection.getYdoc('ydoc');
-await ydoc1.whenLoaded;
-// console.log(ydoc1);
+const collection = ystream.getCollection(owner, name) as Ystream.Collection;
+
+
+export async function getYDoc(id: string) {
+  const ydoc = collection.getYdoc(id);
+  await ydoc.whenLoaded;
+  return ydoc;
+}
