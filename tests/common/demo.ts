@@ -4,7 +4,7 @@ import { TestAgent } from './agent.js';
 test('demo', async ({ page }) => {
   const agent = new TestAgent();
   await agent.start({
-    name: 'demo',
+    name: 'default',
     webPort: 5173,
     backendPort: 3000,
   });

@@ -1,6 +1,6 @@
 <template>
   <div class="top-bar">
-    Test Client
+    Test Client (WebDAV at port 1900)
   </div>
 </template>
 
@@ -11,5 +11,6 @@
   flex-direction: row-reverse;
   height: 100%;
   padding: 0 20px;
+  cursor: pointer;
 }
 </style>
