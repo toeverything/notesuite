@@ -1,6 +1,6 @@
 import * as Y from 'yjs';
 // @ts-ignore
-import { getYDoc } from './third-party/y-websocket.js';
+import { getYDoc } from './ystream/adaptor.js';
 import type { AppContext } from './utils.js';
 // import { exportSnapshot } from '@notesuite/common/dist/editor.js';
 

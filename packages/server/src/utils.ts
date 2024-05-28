@@ -6,11 +6,11 @@ import { JSONFilePreset } from 'lowdb/node';
 import type http from 'http';
 import {
   setupWSConnection,
-  getYDoc,
   docs as serverDocs,
   // @ts-ignore
 } from './third-party/y-websocket.js';
 import * as Y from 'yjs';
+import { getYDoc } from './ystream/adaptor.js';
 
 const instanceName = process.env.INSTANCE_NAME || 'default';
 const docs = serverDocs as Map<string, Y.Doc>;
@@ -44,7 +44,7 @@ async function initDB() {
     activeWorkspaceId?: string;
     workspaces: { id: string; rootId: string; name: string }[];
   } = { workspaces: [] };
-  const db = await JSONFilePreset(`./.db-${instanceName}/db.json`, defaultData);
+  const db = await JSONFilePreset(`./db-${instanceName}.json`, defaultData);
   await db.read();
   await db.write();
   return db;
