@@ -1,13 +1,13 @@
 # NoteSuite
 
-Experimental note-taking app based on [BlockSuite](https://github.com/toeverything/blocksuite) and [ystream](https://github.com/yjs/ystream).
+🔬 Experimental note-taking app based on [BlockSuite](https://github.com/toeverything/blocksuite) (sharing editor with [AFFiNE](https://github.com/toeverything/AFFiNE)) and [ystream](https://github.com/yjs/ystream).
 
 ![screenshot-basic](./images/screenshot-basic.jpg)
 
-## Overview
+## Highlight
 
 * Isomorphic client and web builds.
-* Mapping workspace into files hosted on WebDAV.
+* Mapping workspace into JSON files hosted on WebDAV.
 * VSCode extension for file editing.
 * Documents persisted as `Y.Doc` in ystream instance.
 
